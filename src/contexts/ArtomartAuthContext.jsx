@@ -201,10 +201,14 @@ export const AuthProvider = ({ children }) => {
 
   const signInWithGoogle = async () => {
     try {
+      const redirectTo = import.meta.env.VITE_SITE_URL
+        ? `${import.meta.env.VITE_SITE_URL}/dashboard`
+        : `${window.location.origin}/dashboard`;
+
       const { data, error } = await supabase?.auth?.signInWithOAuth({
         provider: 'google',
         options: {
-          redirectTo: `${window.location.origin}/dashboard`,
+          redirectTo,
           queryParams: {
             access_type: 'offline',
             prompt: 'consent'
