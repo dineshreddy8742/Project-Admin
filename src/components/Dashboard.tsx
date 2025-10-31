@@ -177,13 +177,13 @@ export const Dashboard: React.FC = () => {
         className="text-center py-8"
       >
         <h1 className="text-hero text-primary font-indian mb-4">
-          🌾 {t('dashboard.title')}
+          🌾 Rural Smart Kisan
         </h1>
         <p className="text-lg text-muted-foreground">
-          {t('navbar.farmingAssistant')}
+          Digital Farming Assistant
         </p>
         <p className="text-sm text-secondary mt-2">
-          {t('dashboard.cropMonitor')} • {t('aiAssistant.title')} • {t('dashboard.marketTrends')}
+          Crop Monitor • Kisan AI Assistant • Market Trends
         </p>
       </motion.div>
 
@@ -232,7 +232,7 @@ export const Dashboard: React.FC = () => {
         {/* Header with Refresh */}
         <div className="flex items-center justify-between">
           <h2 className="text-section-title text-primary font-indian flex items-center gap-2">
-            🌤️ {t('dashboard.weatherForecast')}
+            🌤️ Weather Forecast
             <motion.div
               animate={{ rotate: 360 }}
               transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
@@ -583,7 +583,7 @@ export const Dashboard: React.FC = () => {
           <Card>
             <CardHeader>
               <CardTitle className="text-card-title text-primary font-indian">
-                📈 {t('dashboard.marketPrices')}
+                📈 Market Prices
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-3">

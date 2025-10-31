@@ -8,6 +8,12 @@ export default defineConfig(({ mode }) => ({
   server: {
     host: "::",
     port: 8080,
+    proxy: {
+      '/api': {
+        target: 'https://chintuvignu17-projectkisan.hf.space',
+        changeOrigin: true,
+      },
+    },
   },
   plugins: [
     react(),
