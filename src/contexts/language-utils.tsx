@@ -2,18 +2,18 @@ import React, { createContext, useContext, useState, ReactNode, useEffect } from
 
 // Define available languages
 export const LANGUAGES = [
-  { code: 'en', name: 'English', flag: '🇺🇸' },
-  { code: 'kn', name: 'ಕನ್ನಡ', flag: '🇮🇳' },
-  { code: 'hi', name: 'हिंदी', flag: '🇮🇳' },
-  { code: 'te', name: 'తెలుగు', flag: '🇮🇳' },
-  { code: 'ta', name: 'தமிழ்', flag: '🇮🇳' },
-  { code: 'mr', name: 'मराठी', flag: '🇮🇳' },
-  { code: 'ml', name: 'മലയാളം', flag: '🇮🇳' },
-  { code: 'gu', name: 'ગુજરાતી', flag: '🇮🇳' },
-  { code: 'bn', name: 'বাংলা', flag: '🇮🇳' },
-  { code: 'or', name: 'ଓଡ଼ିଆ', flag: '🇮🇳' },
-  { code: 'pa', name: 'ਪੰਜਾਬੀ', flag: '🇮🇳' },
-  { code: 'ur', name: 'اردو', flag: '🇮🇳' },
+  { code: 'en', name: 'English', nativeName: 'English', flag: '🇺🇸' },
+  { code: 'kn', name: 'ಕನ್ನಡ', nativeName: 'ಕನ್ನಡ', flag: '🇮🇳' },
+  { code: 'hi', name: 'हिंदी', nativeName: 'हिंदी', flag: '🇮🇳' },
+  { code: 'te', name: 'తెలుగు', nativeName: 'తెలుగు', flag: '🇮🇳' },
+  { code: 'ta', name: 'தமிழ்', nativeName: 'தமிழ்', flag: '🇮🇳' },
+  { code: 'mr', name: 'मराठी', nativeName: 'मराठी', flag: '🇮🇳' },
+  { code: 'ml', name: 'മലയാളം', nativeName: 'മലയാളം', flag: '🇮🇳' },
+  { code: 'gu', name: 'ગુજરાતી', nativeName: 'ગુજરાતી', flag: '🇮🇳' },
+  { code: 'bn', name: 'বাংলা', nativeName: 'বাংলা', flag: '🇮🇳' },
+  { code: 'or', name: 'ଓଡ଼ିଆ', nativeName: 'ଓଡ଼ିଆ', flag: '🇮🇳' },
+  { code: 'pa', name: 'ਪੰਜਾਬੀ', nativeName: 'ਪੰਜਾਬੀ', flag: '🇮🇳' },
+  { code: 'ur', name: 'اردو', nativeName: 'اردو', flag: '🇮🇳' },
 ];
 
 // Export languages as an alias for backward compatibility
@@ -21,7 +21,7 @@ export const languages = LANGUAGES;
 
 // Define the context type
 interface LanguageContextType {
-  currentLanguage: { code: string; name: string; flag: string };
+  currentLanguage: { code: string; name: string; nativeName: string; flag: string };
   translations: any;
   changeLanguage: (langCode: string) => void;
   t: (key: string) => string;
