@@ -1,0 +1,45 @@
+{
+    "dashboard": {
+      "title": "Project Kisan",
+      "overview": "கண்ணோட்டம்",
+      "cropMonitor": "பயிர் கண்காணிப்பு",
+      "cropRecommendation": "பயிர் பரிந்துரை",
+      "diseaseDetector": "நோய் கண்டறிதல்",
+      "marketTrends": "சந்தை போக்குகள்",
+      "govSchemes": "அரசு திட்டங்கள்",
+      "coldStorage": "குளிர்சாதன கிடங்கு",
+      "groceryMarket": "மளிகை சந்தை",
+      "community": "சமூகம்",
+      "profile": "சுயவிவரம்",
+      "account": "கணக்கு",
+      "settings": "அமைப்புகள்",
+      "appPreferences": "பயன்பாட்டு விருப்பத்தேர்வுகள்"
+    },
+    "navbar": {
+      "dashboard": "டாஷ்போர்டு",
+      "products": "எனது தயாரிப்புகள்",
+      "orders": "எனது ஆர்டர்கள்",
+      "marketing": "சந்தைப்படுத்தல் மையம்",
+      "heritageStory": "பாரம்பரிய கதை",
+      "regionalLanguage": "பிராந்திய மொழி",
+      "craftEducation": "கைவினை கல்வி",
+      "searchDiscover": "தேடி കണ്ടെത്തவும்",
+      "reviews": "விமர்சனங்கள் & கருத்து",
+      "marketplace": "சந்தை",
+      "community": "சமூகம்",
+      "settings": "அமைப்புகள்",
+      "help": "உதவி"
+    },
+    "aiAssistant": {
+      "title": "பீமா AI உதவியாளர்",
+      "placeholder": "விவசாயம், சந்தை விலைகள், குளிர்சாதன வசதி அல்லது கைவினைஞர் வணிகம் பற்றி கேளுங்கள்...",
+      "send": "அனுப்பு",
+      "voice": "குரல் உள்ளீடு",
+      "suggestionManageProducts": "உங்கள் தயாரிப்பு பட்டியல்களை நிர்வகிக்கவும்",
+      "suggestionTrackOrders": "வாடிக்கையாளர் ஆர்டர்களைக் கண்காணிக்கவும்",
+      "suggestionPromote": "உங்கள் கைவினைகளை விளம்பரப்படுத்துங்கள்",
+      "suggestionCropSelection": "AI- அடிப்படையிலான பயிர் தேர்வு",
+      "suggestionDiseaseIdentify": "பயிர் நோய்களை அடையாளம் காணவும்",
+      "suggestionStorage": "சேமிப்பக தீர்வுகளைக் கண்டறியவும்"
+    }
+  }

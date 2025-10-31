@@ -9,7 +9,7 @@ import { TrendingUp, Calendar, Filter, Download, IndianRupee, Eye, ShoppingCart,
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, LineChart, Line } from 'recharts';
 
 const MarketTrendAnalysis = () => {
-  const { translateSync } = useLanguage();
+  const { t: languageT } = useLanguage();
   const { toast } = useToast();
   const [selectedRegion, setSelectedRegion] = useState('india');
   const [selectedTimeframe, setSelectedTimeframe] = useState('6m');

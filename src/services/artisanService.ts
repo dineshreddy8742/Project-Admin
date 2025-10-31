@@ -103,12 +103,24 @@ export const artisanService = {
   getArtisanProducts: async (): Promise<EnhancedProduct[]> => {
     console.log('Fetching artisan products from Supabase');
     try {
+      // First check if Supabase is properly configured
+      if (!supabase) {
+        console.warn('Supabase client not initialized, using mock data');
+        return this.getMockProducts();
+      }
+
       const { data: products, error: productsError } = await supabase
         .from('products')
         .select('*');
 
       if (productsError) {
         console.error('Error fetching products:', productsError);
+        console.error('Error details:', {
+          message: productsError.message,
+          details: productsError.details,
+          hint: productsError.hint,
+          code: productsError.code
+        });
         // If Supabase fails, return mock data
         return this.getMockProducts();
       }
@@ -119,42 +131,55 @@ export const artisanService = {
       }
 
       const adaptedData = await Promise.all(products.map(async (product) => {
-        const { data: artisan, error: artisanError } = await supabase
-          .from('artisans')
-          .select('name, location')
-          .eq('id', product.artisan_id)
-          .single();
+        let artisan = null;
+        let artisanError = null;
 
-        if (artisanError) {
-          console.error(`Error fetching artisan for product ${product.id}:`, artisanError);
+        // Only try to fetch artisan data if artisan_id exists
+        if (product.artisan_id) {
+          try {
+            const result = await supabase
+              .from('artisans')
+              .select('name, location')
+              .eq('id', product.artisan_id)
+              .single();
+            artisan = result.data;
+            artisanError = result.error;
+          } catch (error) {
+            console.warn(`Failed to fetch artisan for product ${product.id}:`, error);
+            artisanError = error;
+          }
+        }
+
+        if (artisanError || !artisan) {
+          console.warn(`Using default artisan data for product ${product.id}`);
           // Continue without artisan data if not found
           return {
             ...product,
             seller: 'Unknown Artisan',
             location: 'Unknown Location',
             unit: 'piece',
-            quantity: product.stock_quantity,
+            quantity: product.stock_quantity || 1,
             freshness: 'N/A',
             isOrganic: false,
             likesCount: 0,
             savesCount: 0,
             feedback: [],
-            postedAt: new Date(product.created_at),
+            postedAt: new Date(product.created_at || Date.now()),
           };
         }
 
         return {
           ...product,
-          seller: artisan.name,
-          location: artisan.location,
+          seller: artisan.name || 'Unknown Artisan',
+          location: artisan.location || 'Unknown Location',
           unit: 'piece',
-          quantity: product.stock_quantity,
+          quantity: product.stock_quantity || 1,
           freshness: 'N/A',
           isOrganic: false,
           likesCount: 0,
           savesCount: 0,
           feedback: [],
-          postedAt: new Date(product.created_at),
+          postedAt: new Date(product.created_at || Date.now()),
         };
       }));
 

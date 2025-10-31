@@ -5,13 +5,13 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useLanguage } from '@/contexts/language-utils';
-import { useToast } from '@/components/ui/use-toast';
+import { useToast } from '@/hooks/use-toast';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, AreaChart, Area } from 'recharts';
 import { TrendingUp, TrendingDown, IndianRupee, ShoppingCart, Users, Package, Loader2 } from 'lucide-react';
 import { apiService } from '@/services/apiService';
 
 const SalesAnalyticsDashboard = () => {
-  const { translateSync } = useLanguage();
+  const { t: languageT } = useLanguage();
   const { toast } = useToast();
   const [timeRange, setTimeRange] = useState('30d');
   const [salesData, setSalesData] = useState<any[]>([]);
@@ -264,8 +264,8 @@ const SalesAnalyticsDashboard = () => {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="h-80">
-              <ResponsiveContainer width="100%" height="100%">
+            <div className="h-80 min-h-[320px]">
+              <ResponsiveContainer width="100%" height={320} minWidth={300} minHeight={320}>
                 <AreaChart data={salesData}>
                   <CartesianGrid strokeDasharray="3 3" strokeOpacity={0.2} />
                   <XAxis dataKey="name" />

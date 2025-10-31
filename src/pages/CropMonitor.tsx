@@ -14,7 +14,7 @@ interface SensorData {
 }
 
 const CropMonitor = () => {
-  const { translateSync } = useLanguage();
+  const { t: languageT } = useLanguage();
   const [sensorData, setSensorData] = useState<SensorData | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
@@ -216,7 +216,7 @@ const CropMonitor = () => {
           className="flex flex-col items-center justify-center min-h-[400px] space-y-6 bg-gradient-to-br from-red-50 to-red-100 rounded-3xl shadow-2xl p-8 border-4 border-red-300"
         >
           <AlertCircle className="h-24 w-24 text-red-500 animate-pulse-slow" />
-          <h2 className="text-4xl font-extrabold text-red-700 text-center">{translateSync('Error Fetching Data')}</h2>
+          <h2 className="text-4xl font-extrabold text-red-700 text-center">{languageT('Error Fetching Data')}</h2>
           <p className="text-xl text-red-600 text-center max-w-lg leading-relaxed">{error}</p>
           <Button
             onClick={fetchSensorData}
@@ -224,7 +224,7 @@ const CropMonitor = () => {
             className="mt-6 text-lg px-8 py-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
           >
             <RefreshCw className="h-6 w-6 mr-3 animate-spin-slow" />
-            {translateSync('Retry Data Fetch')}
+            {languageT('Retry Data Fetch')}
           </Button>
         </motion.div>
       );
@@ -308,28 +308,28 @@ const CropMonitor = () => {
           <AnimatedGauge
             type="temperature"
             value={sensorData.temperature}
-            label={translateSync('Temperature')}
+            label={languageT('Temperature')}
             icon={Thermometer}
             color="bg-gradient-to-br from-red-500 to-red-700"
           />
           <AnimatedGauge
             type="humidity"
             value={sensorData.humidity}
-            label={translateSync('Humidity')}
+            label={languageT('Humidity')}
             icon={Droplets}
             color="bg-gradient-to-br from-blue-500 to-blue-700"
           />
           <AnimatedGauge
             type="moisture"
             value={sensorData.moisture}
-            label={translateSync('Moisture')}
+            label={languageT('Moisture')}
             icon={Leaf}
             color="bg-gradient-to-br from-green-500 to-green-700"
           />
           <AnimatedGauge
             type="light"
             value={sensorData.light}
-            label={translateSync('Light Intensity')}
+            label={languageT('Light Intensity')}
             icon={Sun}
             color="bg-gradient-to-br from-yellow-500 to-yellow-700"
           />
@@ -345,7 +345,7 @@ const CropMonitor = () => {
             <CardHeader className="pb-4">
               <CardTitle className="text-2xl font-bold text-slate-800 flex items-center">
                 <CheckCircle className="h-8 w-8 mr-3 text-green-600" />
-                {translateSync('System Status & Recommendations')}
+                {languageT('System Status & Recommendations')}
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -406,13 +406,12 @@ const CropMonitor = () => {
           transition={{ duration: 0.8, ease: "easeOut" }}
           className="text-center mb-10"
         >
-          <h1 className="text-6xl font-extrabold text-green-700 mb-4 tracking-tight leading-tight drop-shadow-md">
-            <span className="inline-block animate-pulse mr-3 text-7xl">🌱</span> {translateSync('Crop Monitor')}
-          </h1>
-          <p className="text-xl md:text-2xl text-gray-600 font-medium max-w-2xl mx-auto">
-            {translateSync('Real-time environmental insights for thriving crops and sustainable farming.')}
-          </p>
-          {lastUpdated && (
+                          <h1 className="text-6xl font-extrabold text-green-700 mb-4 tracking-tight leading-tight drop-shadow-md">
+                      <span className="inline-block animate-pulse mr-3 text-7xl">🌱</span> {languageT('Crop Monitor')}
+                    </h1>
+                    <p className="text-xl md:text-2xl text-gray-600 font-medium max-w-2xl mx-auto">
+                      {languageT('Real-time environmental insights for thriving crops and sustainable farming.')}
+                    </p>          {lastUpdated && (
             <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}

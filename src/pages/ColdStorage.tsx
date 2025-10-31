@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ColdStorageForm } from "@/components/ColdStorageForm";
-import { useLanguage } from "@/contexts/LanguageContext";
+import { useLanguage } from "@/contexts/language-utils";
 import { useToast } from "@/components/ui/use-toast";
 import eventBus from "@/lib/eventBus";
 import { 
@@ -31,7 +31,7 @@ const ColdStorage = () => {
   const [favorites, setFavorites] = useState<Set<string>>(new Set());
   const [showFeedback, setShowFeedback] = useState(false);
   const [feedback, setFeedback] = useState({ rating: 0, comment: "" });
-  const { translate, translateSync, currentLanguage } = useLanguage();
+  const { t: languageT, currentLanguage } = useLanguage();
   const [translatedTexts, setTranslatedTexts] = useState<Record<string, string>>({});
   const { toast } = useToast();
 
@@ -79,7 +79,7 @@ const ColdStorage = () => {
       
       for (const text of textsToTranslate) {
         try {
-          translated[text] = await translate(text);
+          translated[text] = languageT(text);
         } catch (error) {
           translated[text] = text;
         }
@@ -89,9 +89,9 @@ const ColdStorage = () => {
     };
 
     translateStaticTexts();
-  }, [currentLanguage, translate]);
+  }, [currentLanguage, languageT]);
 
-  const t = (text: string) => translatedTexts[text] || text;
+  const t = (text: string) => translatedTexts[text] || languageT(text) || text;
 
   const fadeInUp = {
     initial: { opacity: 0, y: 60 },

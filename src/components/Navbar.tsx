@@ -4,8 +4,7 @@ import { Menu, Bell, HelpCircle, User, ChevronDown, Globe, Settings } from 'luci
 import { useNavigate } from 'react-router-dom';
 import { Button } from './ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
-import { useLanguage } from '@/contexts/LanguageContext';
-import { languages } from '@/contexts/language-utils';
+import { useLanguage } from '@/contexts/language-utils';
 import { useAuth } from '@/contexts/ArtomartAuthContext';
 import CartIcon from './CartIcon';
 import farmerAvatar from '@/assets/farmer-avatar.png';
@@ -21,7 +20,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onMenuToggle, isSidebarOpen }) =
   const [showProfile, setShowProfile] = useState(false);
   const [showLanguages, setShowLanguages] = useState(false);
 
-  const { currentLanguage, setLanguage, translate, translateSync } = useLanguage();
+  const { currentLanguage, changeLanguage, t } = useLanguage();
   const { user, userProfile, signOut } = useAuth();
   const navigate = useNavigate();
   const [translatedTexts, setTranslatedTexts] = useState<Record<string, string>>({});
@@ -49,38 +48,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onMenuToggle, isSidebarOpen }) =
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  // Translate static texts when language changes
-  useEffect(() => {
-    const translateStaticTexts = async () => {
-      if (currentLanguage.code === 'en') {
-        setTranslatedTexts({});
-        return;
-      }
-
-      const textsToTranslate = [
-        'Notifications',
-        'Settings',
-        'Sign Out',
-        'Language'
-      ];
-
-      const translated: Record<string, string> = {};
-
-      for (const text of textsToTranslate) {
-        try {
-          translated[text] = await translate(text);
-        } catch (error) {
-          translated[text] = text;
-        }
-      }
-
-      setTranslatedTexts(translated);
-    };
-
-    translateStaticTexts();
-  }, [currentLanguage, translate]);
-
-  const t = (text: string) => translatedTexts[text] || translateSync(text) || text;
+  // The new translation system handles this automatically
 
   console.log('userProfile?.role:', userProfile?.role);
   const userAvatar = (userProfile?.role === 'artifact_seller' || userProfile?.role === 'artisan') ? artisanAvatar : farmerAvatar;
@@ -126,7 +94,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onMenuToggle, isSidebarOpen }) =
                 {(userProfile?.role === 'artifact_seller' || userProfile?.role === 'artisan') ? 'Project Artisan' : 'Project Kisan'}
               </h1>
               <p className="text-xs font-medium text-primary/80 hidden sm:block mt-0.5">
-                {(userProfile?.role === 'artifact_seller' || userProfile?.role === 'artisan') ? translateSync('Digital Artifact Assistant') : translateSync('Digital Farming Assistant')}
+                {(userProfile?.role === 'artifact_seller' || userProfile?.role === 'artisan') ? t('navbar.artisanAssistant') : t('navbar.farmingAssistant')}
               </p>
             </div>
           </motion.div>
@@ -162,7 +130,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onMenuToggle, isSidebarOpen }) =
             >
               <Globe className="h-4 w-4" />
               <span className="text-sm font-medium">
-                {currentLanguage.nativeName}
+                {currentLanguage.name}
               </span>
               <ChevronDown className="h-4 w-4" />
             </Button>
@@ -174,18 +142,31 @@ export const Navbar: React.FC<NavbarProps> = ({ onMenuToggle, isSidebarOpen }) =
                 transition={{ type: "spring", stiffness: 300, damping: 30 }}
                 className="absolute right-0 mt-2 w-52 bg-card/95 backdrop-blur-xl rounded-xl shadow-2xl border border-primary/20 p-2 z-50"
               >
-                {languages.map((lang) => (
+                {[
+                  { code: 'en', name: 'English', flag: '🇺🇸' },
+                  { code: 'kn', name: 'ಕನ್ನಡ', flag: '🇮🇳' },
+                  { code: 'hi', name: 'हिंदी', flag: '🇮🇳' },
+                  { code: 'te', name: 'తెలుగు', flag: '🇮🇳' },
+                  { code: 'ta', name: 'தமிழ்', flag: '🇮🇳' },
+                  { code: 'mr', name: 'मराठी', flag: '🇮🇳' },
+                  { code: 'ml', name: 'മലയാളം', flag: '🇮🇳' },
+                  { code: 'gu', name: 'ગુજરાતી', flag: '🇮🇳' },
+                  { code: 'bn', name: 'বাংলা', flag: '🇮🇳' },
+                  { code: 'or', name: 'ଓଡ଼ିଆ', flag: '🇮🇳' },
+                  { code: 'pa', name: 'ਪੰਜਾਬੀ', flag: '🇮🇳' },
+                  { code: 'ur', name: 'اردو', flag: '🇮🇳' },
+                ].map((lang) => (
                   <Button
                     key={lang.code}
                     variant="ghost"
                     className="w-full justify-start gap-2 rounded-lg hover:bg-primary/10 transition-all duration-200"
                     onClick={() => {
-                      setLanguage(lang);
+                      changeLanguage(lang.code);
                       setShowLanguages(false);
                     }}
                   >
                     <span className="text-lg">{lang.flag}</span>
-                    <span className="text-sm">{lang.nativeName}</span>
+                    <span className="text-sm">{lang.name}</span>
                   </Button>
                 ))}
               </motion.div>
@@ -215,23 +196,23 @@ export const Navbar: React.FC<NavbarProps> = ({ onMenuToggle, isSidebarOpen }) =
                 transition={{ type: "spring", stiffness: 300, damping: 30 }}
                 className="absolute right-0 mt-2 w-80 bg-card/95 backdrop-blur-xl rounded-xl shadow-2xl border border-primary/20 p-4 z-50"
               >
-                <h3 className="font-semibold mb-3 flex items-center gap-2 text-primary"><Bell className="h-4 w-4" /> {t('Notifications')}</h3>
+                <h3 className="font-semibold mb-3 flex items-center gap-2 text-primary"><Bell className="h-4 w-4" /> {t('common.notifications')}</h3>
                 <div className="space-y-2 max-h-60 overflow-y-auto">
                   <div className="p-3 bg-gradient-to-r from-accent/20 to-primary/10 rounded-lg border border-accent/20 text-sm flex items-start gap-2">
                     <div className="w-2 h-2 rounded-full bg-green-500 mt-1.5 flex-shrink-0"></div>
-                    <span>🌾 {translateSync('Crop monitoring alert: Low soil moisture detected')}</span>
+                    <span>🌾 {t('dashboard.cropMonitoringAlert')}</span>
                   </div>
                   <div className="p-3 bg-gradient-to-r from-primary/20 to-secondary/10 rounded-lg border border-primary/20 text-sm flex items-start gap-2">
                     <div className="w-2 h-2 rounded-full bg-blue-500 mt-1.5 flex-shrink-0"></div>
-                    <span>📈 {translateSync('Tomato prices increased by 12% today')}</span>
+                    <span>📈 {t('dashboard.tomatoPriceIncrease')}</span>
                   </div>
                   <div className="p-3 bg-gradient-to-r from-secondary/20 to-accent/10 rounded-lg border border-secondary/20 text-sm flex items-start gap-2">
                     <div className="w-2 h-2 rounded-full bg-amber-500 mt-1.5 flex-shrink-0"></div>
-                    <span>🏛️ {translateSync('New subsidy scheme available for drip irrigation')}</span>
+                    <span>🏛️ {t('dashboard.subsidyScheme')}</span>
                   </div>
                   <div className="p-3 bg-gradient-to-r from-primary/10 to-secondary/5 rounded-lg border border-primary/20 text-sm flex items-start gap-2">
                     <div className="w-2 h-2 rounded-full bg-purple-500 mt-1.5 flex-shrink-0"></div>
-                    <span>🌿 {translateSync('New organic farming certification program launched')}</span>
+                    <span>🌿 {t('dashboard.organicCertification')}</span>
                   </div>
                 </div>
               </motion.div>
@@ -281,8 +262,8 @@ export const Navbar: React.FC<NavbarProps> = ({ onMenuToggle, isSidebarOpen }) =
                     </AvatarFallback>
                   </Avatar>
                   <div>
-                    <h4 className="font-semibold text-primary text-lg">{userProfile?.name || translateSync('Farmers Friend')}</h4>
-                    <p className="text-sm text-muted-foreground">{userProfile?.email || translateSync('Karnataka, India')}</p>
+                    <h4 className="font-semibold text-primary text-lg">{userProfile?.name || t('navbar.farmerFriend')}</h4>
+                    <p className="text-sm text-muted-foreground">{userProfile?.email || t('navbar.karnatakaIndia')}</p>
                     <p className="text-xs text-primary/60 mt-1">Active • {new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
                   </div>
                 </div>

@@ -5,15 +5,16 @@ import { supabase } from '@/lib/supabase';
 import { EnhancedProduct } from '@/hooks/useSupabase';
 import { useToast } from '@/components/ui/use-toast';
 import { Button } from '@/components/ui/button';
-import { ShoppingCart, Star, User, MapPin, Clock, Heart } from 'lucide-react';
+import { ShoppingCart, Star, User, MapPin, Clock, Heart, Truck } from 'lucide-react';
 import AppImage from '@/components/AppImage';
 import { useLanguage } from '@/contexts/language-utils';
 import { useWishlist } from '@/contexts/WishlistContext';
 import { useCart } from '@/contexts/CartContext';
+import axios from 'axios';
 
 const ProductDetailsPage = () => {
   const { productId } = useParams<{ productId: string }>();
-  const { translateSync } = useLanguage();
+  const { t: languageT } = useLanguage();
   const { toast } = useToast();
   const { isInWishlist, addToWishlist, removeFromWishlist } = useWishlist();
   const { addToCart } = useCart();
@@ -31,8 +32,8 @@ const ProductDetailsPage = () => {
         location: product.location,
       }, 1);
       toast({
-        title: translateSync('Added to Cart'),
-        description: `${product.name} ${translateSync('has been added to your cart.')}`,
+        title: languageT('Added to Cart'),
+        description: `${product.name} ${languageT('has been added to your cart.')}`,
       });
     }
   };
@@ -113,7 +114,7 @@ const ProductDetailsPage = () => {
       <div className="flex items-center justify-center min-h-[60vh]">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
-          <p className="text-muted-foreground">{translateSync('Loading product details...')}</p>
+          <p className="text-muted-foreground">{languageT('Loading product details...')}</p>
         </div>
       </div>
     );
@@ -123,8 +124,8 @@ const ProductDetailsPage = () => {
     return (
       <div className="flex items-center justify-center min-h-[60vh]">
         <div className="text-center text-destructive">
-          <p className="text-lg font-medium mb-2">{translateSync('Error')}: {error}</p>
-          <Button onClick={() => window.history.back()}>{translateSync('Go Back')}</Button>
+          <p className="text-lg font-medium mb-2">{languageT('Error')}: {error}</p>
+          <Button onClick={() => window.history.back()}>{languageT('Go Back')}</Button>
         </div>
       </div>
     );
@@ -134,8 +135,8 @@ const ProductDetailsPage = () => {
     return (
       <div className="flex items-center justify-center min-h-[60vh]">
         <div className="text-center">
-          <p className="text-lg font-medium mb-2">{translateSync('Product not found.')}</p>
-          <Button onClick={() => window.history.back()}>{translateSync('Go Back')}</Button>
+          <p className="text-lg font-medium mb-2">{languageT('Product not found.')}</p>
+          <Button onClick={() => window.history.back()}>{languageT('Go Back')}</Button>
         </div>
       </div>
     );
@@ -177,7 +178,7 @@ const ProductDetailsPage = () => {
                 />
               ))}
             </div>
-            <span className="text-muted-foreground">({product.reviews || 0} {translateSync('Reviews')})</span>
+            <span className="text-muted-foreground">({product.reviews || 0} {languageT('Reviews')})</span>
           </div>
 
           <div className="flex items-baseline gap-3">
@@ -207,18 +208,18 @@ const ProductDetailsPage = () => {
             </div>
             <div className="flex items-center gap-2">
               <Clock className="h-4 w-4 text-muted-foreground" />
-              <span>{translateSync('Posted')} {product.postedAt.toLocaleDateString()}</span>
+              <span>{languageT('Posted')} {product.postedAt.toLocaleDateString()}</span>
             </div>
             <div className="flex items-center gap-2">
               <FiTruck className="h-4 w-4 text-muted-foreground" />
-              <span>{translateSync('Free Delivery')}</span>
+              <span>{languageT('Free Delivery')}</span>
             </div>
           </div>
 
           <div className="flex gap-4">
             <button className="flex-1 bg-primary text-primary-foreground hover:bg-primary/90 h-11 rounded-md px-8 flex items-center justify-center gap-2" onClick={handleAddToCart}>
               <ShoppingCart className="h-5 w-5 mr-2" />
-              {translateSync('Add to Cart')}
+              {languageT('Add to Cart')}
             </button>
             <Button 
               variant="outline" 

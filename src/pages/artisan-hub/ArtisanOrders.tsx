@@ -8,7 +8,7 @@ import { Badge } from '@/components/ui/badge';
 import { useToast } from '@/components/ui/use-toast';
 
 const ArtisanOrders = () => {
-  const { translateSync } = useLanguage();
+  const { t } = useLanguage();
   const { toast } = useToast();
 
   const mockOrders = [
@@ -73,10 +73,10 @@ const ArtisanOrders = () => {
       transition={{ duration: 0.5 }}
       className="space-y-6"
     >
-      <h1 className="text-section-title text-primary font-indian">{translateSync("My Orders")}</h1>
+      <h1 className="text-section-title text-primary font-indian">{t("My Orders")}</h1>
       <Card className="bg-card">
         <CardHeader>
-          <CardTitle className="text-card-title text-primary font-indian">{translateSync("All Orders")}</CardTitle>
+          <CardTitle className="text-card-title text-primary font-indian">{t("All Orders")}</CardTitle>
         </CardHeader>
         <CardContent>
           {mockOrders.length > 0 ? (
@@ -110,7 +110,7 @@ const ArtisanOrders = () => {
             </Table>
           ) : (
             <div className="text-center py-12">
-              <p className="text-muted-foreground">{translateSync("You have no orders yet.")}</p>
+              <p className="text-muted-foreground">{t("You have no orders yet.")}</p>
             </div>
           )}
         </CardContent>

@@ -7,7 +7,7 @@ import { VoiceAssistant } from "@/components/VoiceAssistant";
 import LandingPage from "@/pages/LandingPage";
 import Login from "@/pages/Login";
 import Signup from "@/pages/Signup";
-import { LanguageProvider } from "@/contexts/LanguageContext";
+import { LanguageProvider } from "@/contexts/language-utils";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { AuthProvider } from "@/contexts/ArtomartAuthContext";
 import { CartProvider } from "@/contexts/CartContext";

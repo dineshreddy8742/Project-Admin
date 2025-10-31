@@ -2,12 +2,12 @@ import { useState, useEffect } from 'react';
 import { useLanguage } from '@/contexts/language-utils';
 
 export const useTranslation = (textsToTranslate: string[]) => {
-  const { translate, translateSync, currentLanguage } = useLanguage();
+  const { t, currentLanguage } = useLanguage();
   const [translatedTexts, setTranslatedTexts] = useState<Record<string, string>>({});
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    const translateStaticTexts = async () => {
+    const translateStaticTexts = () => {
       if (currentLanguage.code === 'en') {
         setTranslatedTexts({});
         return;
@@ -18,7 +18,7 @@ export const useTranslation = (textsToTranslate: string[]) => {
       
       for (const text of textsToTranslate) {
         try {
-          translated[text] = await translate(text);
+          translated[text] = t(text);
         } catch (error) {
           translated[text] = text;
         }
@@ -29,9 +29,9 @@ export const useTranslation = (textsToTranslate: string[]) => {
     };
 
     translateStaticTexts();
-  }, [currentLanguage, translate, textsToTranslate]);
+  }, [currentLanguage, t, textsToTranslate]);
 
-  const t = (text: string) => translatedTexts[text] || translateSync(text) || text;
+  const translatedText = (text: string) => translatedTexts[text] || t(text) || text;
 
-  return { t, isLoading, translatedTexts };
+  return { t: translatedText, isLoading, translatedTexts };
 };

@@ -11,7 +11,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Separator } from '@/components/ui/separator';
 import { Badge } from '@/components/ui/badge';
 import { Layout } from '@/components/Layout';
-import { useLanguage } from '@/contexts/LanguageContext';
+import { useLanguage } from '@/contexts/language-utils';
 import { languages } from '@/contexts/language-utils';
 import { User, Mail, Phone, Globe, Package, LogOut, Edit, Save } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
@@ -37,7 +37,7 @@ const plans = {
 const Profile = () => {
   const [currentUser, setCurrentUser] = useState<any>(null);
   const [isEditing, setIsEditing] = useState(false);
-  const { translateSync, setLanguage, currentLanguage } = useLanguage();
+  const { t: languageT, setLanguage, currentLanguage } = useLanguage();
   const navigate = useNavigate();
   const { toast } = useToast();
 
@@ -123,16 +123,16 @@ const Profile = () => {
     
     setIsEditing(false);
     toast({
-      title: translateSync("Profile Updated"),
-      description: translateSync("Your profile has been successfully updated."),
+      title: languageT("Profile Updated"),
+      description: languageT("Your profile has been successfully updated."),
     });
   };
 
   const handleLogout = () => {
     localStorage.removeItem('agritech_current_user');
     toast({
-      title: translateSync("Logged Out"),
-      description: translateSync("You have been successfully logged out."),
+      title: languageT("Logged Out"),
+      description: languageT("You have been successfully logged out."),
     });
     navigate('/login');
   };
@@ -149,10 +149,10 @@ const Profile = () => {
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-3xl font-bold bg-gradient-to-r from-farm-primary to-farm-accent bg-clip-text text-transparent">
-              {translateSync("Profile")}
+              {languageT("Profile")}
             </h1>
             <p className="text-muted-foreground mt-2">
-              {translateSync("Manage your account settings and preferences")}
+              {languageT("Manage your account settings and preferences")}
             </p>
           </div>
           <Button 
@@ -161,7 +161,7 @@ const Profile = () => {
             className="flex items-center gap-2"
           >
             <LogOut className="w-4 h-4" />
-            {translateSync("Logout")}
+            {languageT("Logout")}
           </Button>
         </div>
 
@@ -173,10 +173,10 @@ const Profile = () => {
                 <div>
                   <CardTitle className="flex items-center gap-2">
                     <User className="w-5 h-5" />
-                    {translateSync("Personal Information")}
+                    {languageT("Personal Information")}
                   </CardTitle>
                   <CardDescription>
-                    {translateSync("Update your personal details and preferences")}
+                    {languageT("Update your personal details and preferences")}
                   </CardDescription>
                 </div>
                 <Button
@@ -194,12 +194,12 @@ const Profile = () => {
                   {isEditing ? (
                     <>
                       <Save className="w-4 h-4" />
-                      {translateSync("Save")}
+                      {languageT("Save")}
                     </>
                   ) : (
                     <>
                       <Edit className="w-4 h-4" />
-                      {translateSync("Edit")}
+                      {languageT("Edit")}
                     </>
                   )}
                 </Button>
@@ -213,7 +213,7 @@ const Profile = () => {
                         name="name"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>{translateSync("Full Name")}</FormLabel>
+                            <FormLabel>{languageT("Full Name")}</FormLabel>
                             <FormControl>
                               <Input 
                                 {...field} 
@@ -231,7 +231,7 @@ const Profile = () => {
                         name="email"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>{translateSync("Email")}</FormLabel>
+                            <FormLabel>{languageT("Email")}</FormLabel>
                             <FormControl>
                               <Input 
                                 {...field} 
@@ -250,7 +250,7 @@ const Profile = () => {
                         name="phone"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>{translateSync("Phone Number")}</FormLabel>
+                            <FormLabel>{languageT("Phone Number")}</FormLabel>
                             <FormControl>
                               <Input 
                                 {...field} 
@@ -269,7 +269,7 @@ const Profile = () => {
                         name="state"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>{translateSync("State")}</FormLabel>
+                            <FormLabel>{languageT("State")}</FormLabel>
                             <FormControl>
                               <Input 
                                 {...field} 
@@ -287,7 +287,7 @@ const Profile = () => {
                         name="district"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>{translateSync("District")}</FormLabel>
+                            <FormLabel>{languageT("District")}</FormLabel>
                             <FormControl>
                               <Input 
                                 {...field} 
@@ -305,7 +305,7 @@ const Profile = () => {
                         name="language"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>{translateSync("Preferred Language")}</FormLabel>
+                            <FormLabel>{languageT("Preferred Language")}</FormLabel>
                             <Select 
                               onValueChange={field.onChange} 
                               value={field.value}
@@ -345,21 +345,21 @@ const Profile = () => {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Package className="w-5 h-5" />
-                  {translateSync("Current Plan")}
+                  {languageT("Current Plan")}
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="text-center space-y-4">
                   <div className="text-4xl">{userPlan.emoji}</div>
                   <div>
-                    <h3 className="font-semibold text-lg">{translateSync(userPlan.name)}</h3>
+                    <h3 className="font-semibold text-lg">{languageT(userPlan.name)}</h3>
                     <div className="text-2xl font-bold text-farm-primary mt-2">{userPlan.price}</div>
                   </div>
                   <Badge variant="secondary" className="bg-farm-primary/10 text-farm-primary">
-                    {translateSync("Active")}
+                    {languageT("Active")}
                   </Badge>
                   <Button variant="outline" className="w-full">
-                    {translateSync("Upgrade Plan")}
+                    {languageT("Upgrade Plan")}
                   </Button>
                 </div>
               </CardContent>
@@ -368,11 +368,11 @@ const Profile = () => {
             {/* Account Summary */}
             <Card>
               <CardHeader>
-                <CardTitle>{translateSync("Account Summary")}</CardTitle>
+                <CardTitle>{languageT("Account Summary")}</CardTitle>
               </CardHeader>
               <CardContent className="space-y-3">
                 <div className="flex items-center justify-between text-sm">
-                  <span className="text-muted-foreground">{translateSync("Role")}</span>
+                  <span className="text-muted-foreground">{languageT("Role")}</span>
                   <Badge variant="outline" className="bg-primary/10 text-primary">
                     {currentUser.role === 'farmer' ? '🚜 Farmer' : 
                      currentUser.role === 'artifact_seller' ? '🏺 Artifact Seller' :
@@ -381,19 +381,19 @@ const Profile = () => {
                 </div>
                 <Separator />
                 <div className="flex items-center justify-between text-sm">
-                  <span className="text-muted-foreground">{translateSync("Member Since")}</span>
+                  <span className="text-muted-foreground">{languageT("Member Since")}</span>
                   <span>{new Date(currentUser.createdAt).toLocaleDateString()}</span>
                 </div>
                 <Separator />
                 <div className="flex items-center justify-between text-sm">
-                  <span className="text-muted-foreground">{translateSync("Account Status")}</span>
+                  <span className="text-muted-foreground">{languageT("Account Status")}</span>
                   <Badge variant="secondary" className="bg-green-100 text-green-800">
-                    {translateSync("Active")}
+                    {languageT("Active")}
                   </Badge>
                 </div>
                 <Separator />
                 <div className="flex items-center justify-between text-sm">
-                  <span className="text-muted-foreground">{translateSync("Language")}</span>
+                  <span className="text-muted-foreground">{languageT("Language")}</span>
                   <span className="flex items-center gap-1">
                     {languages.find(l => l.code === currentUser.language)?.flag}
                     {languages.find(l => l.code === currentUser.language)?.nativeName}

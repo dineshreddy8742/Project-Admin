@@ -75,7 +75,7 @@ const Signup = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [step, setStep] = useState('profile');
-  const { translateSync } = useLanguage();
+  const { t: languageT } = useLanguage();
   const navigate = useNavigate();
   const { toast } = useToast();
   const { signUp, signInWithGoogle } = useAuth();
@@ -108,7 +108,7 @@ const Signup = () => {
 
       if (error) {
         toast({
-          title: translateSync("Sign Up Failed"),
+          title: languageT("Sign Up Failed"),
           description: error.message,
           variant: "destructive",
         });
@@ -116,8 +116,8 @@ const Signup = () => {
       }
 
       toast({
-        title: translateSync("Account Created Successfully"),
-        description: translateSync("Welcome to AgriTech! You can now sign in."),
+        title: languageT("Account Created Successfully"),
+        description: languageT("Welcome to AgriTech! You can now sign in."),
       });
 
       // Navigate based on user role
@@ -132,8 +132,8 @@ const Signup = () => {
       }
     } catch (error) {
       toast({
-        title: translateSync("Sign Up Failed"),
-        description: translateSync("An unexpected error occurred"),
+        title: languageT("Sign Up Failed"),
+        description: languageT("An unexpected error occurred"),
         variant: "destructive",
       });
     }
@@ -144,15 +144,15 @@ const Signup = () => {
       const { error } = await signInWithGoogle();
       if (error) {
         toast({
-          title: translateSync("Google Sign-Up Failed"),
+          title: languageT("Google Sign-Up Failed"),
           description: error.message,
           variant: "destructive",
         });
       }
     } catch (error) {
       toast({
-        title: translateSync("Google Sign-Up Failed"),
-        description: translateSync("An unexpected error occurred"),
+        title: languageT("Google Sign-Up Failed"),
+        description: languageT("An unexpected error occurred"),
         variant: "destructive",
       });
     }
@@ -196,10 +196,10 @@ const Signup = () => {
             <Leaf className="w-8 h-8 text-white animate-wiggle" />
           </div>
           <CardTitle className="text-2xl font-bold bg-gradient-to-r from-farm-primary via-farm-accent to-farm-primary bg-clip-text text-transparent animate-gradient-text">
-            🌟 {translateSync("Join AgriTech")} 🌟
+            🌟 {languageT("Join AgriTech")} 🌟
           </CardTitle>
           <CardDescription className="text-muted-foreground animate-fade-in-up">
-            🚀 {translateSync("Create your account and choose your farming plan")}
+            🚀 {languageT("Create your account and choose your farming plan")}
           </CardDescription>
         </CardHeader>
 
@@ -212,7 +212,7 @@ const Signup = () => {
                 }`}>
                   1
                 </div>
-                {translateSync("Profile")}
+                {languageT("Profile")}
               </TabsTrigger>
               <TabsTrigger value="plan" className="flex items-center gap-2">
                 <div className={`w-6 h-6 rounded-full flex items-center justify-center text-xs ${
@@ -220,7 +220,7 @@ const Signup = () => {
                 }`}>
                   2
                 </div>
-                {translateSync("Plan")}
+                {languageT("Plan")}
               </TabsTrigger>
             </TabsList>
 
@@ -233,12 +233,12 @@ const Signup = () => {
                       name="name"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>{translateSync("Full Name")}</FormLabel>
+                          <FormLabel>{languageT("Full Name")}</FormLabel>
                           <FormControl>
-                            <Input 
-                              placeholder={translateSync("Enter your full name")}
+                            <Input
+                              placeholder={languageT("Enter your full name")}
                               className="h-12"
-                              {...field} 
+                              {...field}
                             />
                           </FormControl>
                           <FormMessage />
@@ -251,13 +251,13 @@ const Signup = () => {
                       name="email"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>{translateSync("Email")}</FormLabel>
+                          <FormLabel>{languageT("Email")}</FormLabel>
                           <FormControl>
-                            <Input 
-                              placeholder={translateSync("Enter your email")}
+                            <Input  
+                              placeholder={languageT("Enter your email")}
                               type="email"
                               className="h-12"
-                              {...field} 
+                              {...field}  
                             />
                           </FormControl>
                           <FormMessage />
@@ -270,10 +270,10 @@ const Signup = () => {
                       name="phone"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>{translateSync("Phone Number")}</FormLabel>
+                          <FormLabel>{languageT("Phone Number")}</FormLabel>
                           <FormControl>
                             <Input 
-                              placeholder={translateSync("Enter your phone number")}
+                              placeholder={languageT("Enter your phone number")}
                               type="tel"
                               className="h-12"
                               {...field} 
@@ -289,10 +289,10 @@ const Signup = () => {
                       name="state"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>{translateSync("State")}</FormLabel>
+                          <FormLabel>{languageT("State")}</FormLabel>
                           <FormControl>
                             <Input 
-                              placeholder={translateSync("Enter your state")}
+                              placeholder={languageT("Enter your state")}
                               className="h-12"
                               {...field} 
                             />
@@ -307,10 +307,10 @@ const Signup = () => {
                       name="district"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>{translateSync("District")}</FormLabel>
+                          <FormLabel>{languageT("District")}</FormLabel>
                           <FormControl>
                             <Input 
-                              placeholder={translateSync("Enter your district")}
+                              placeholder={languageT("Enter your district")}
                               className="h-12"
                               {...field} 
                             />
@@ -325,11 +325,11 @@ const Signup = () => {
                       name="language"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>{translateSync("Preferred Language")}</FormLabel>
+                          <FormLabel>{languageT("Preferred Language")}</FormLabel>
                           <Select onValueChange={field.onChange} defaultValue={field.value}>
                             <FormControl>
                               <SelectTrigger className="h-12">
-                                <SelectValue placeholder={translateSync("Select language")} />
+                                <SelectValue placeholder={languageT("Select language")} />
                               </SelectTrigger>
                             </FormControl>
                             <SelectContent>
@@ -353,36 +353,36 @@ const Signup = () => {
                       name="role"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>{translateSync("User Role")}</FormLabel>
+                          <FormLabel>{languageT("User Role")}</FormLabel>
                           <Select onValueChange={field.onChange} defaultValue={field.value}>
                             <FormControl>
                               <SelectTrigger className="h-12">
-                                <SelectValue placeholder={translateSync("Select your role")} />
+                                <SelectValue placeholder={languageT("Select your role")} />
                               </SelectTrigger>
                             </FormControl>
                             <SelectContent>
                               <SelectItem value="farmer">
                                 <div className="flex items-center gap-2">
                                   <span>🚜</span>
-                                  <span>{translateSync("Farmer")}</span>
+                                  <span>{languageT("Farmer")}</span>
                                 </div>
                               </SelectItem>
                               <SelectItem value="artifact_seller">
                                 <div className="flex items-center gap-2">
                                   <span>🏺</span>
-                                  <span>{translateSync("Artifact Seller")}</span>
+                                  <span>{languageT("Artifact Seller")}</span>
                                 </div>
                               </SelectItem>
                               <SelectItem value="crop_advisor">
                                 <div className="flex items-center gap-2">
                                   <span>🧑‍🌾</span>
-                                  <span>{translateSync("Crop Advisor")}</span>
+                                  <span>{languageT("Crop Advisor")}</span>
                                 </div>
                               </SelectItem>
                               <SelectItem value="admin">
                                 <div className="flex items-center gap-2">
                                   <span>👨‍💼</span>
-                                  <span>{translateSync("Administrator")}</span>
+                                  <span>{languageT("Administrator")}</span>
                                 </div>
                               </SelectItem>
                             </SelectContent>
@@ -397,11 +397,11 @@ const Signup = () => {
                       name="password"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>{translateSync("Password")}</FormLabel>
+                          <FormLabel>{languageT("Password")}</FormLabel>
                           <FormControl>
                             <div className="relative">
                               <Input 
-                                placeholder={translateSync("Create a password")}
+                                placeholder={languageT("Create a password")}
                                 type={showPassword ? "text" : "password"}
                                 className="h-12 pr-12"
                                 {...field} 
@@ -427,11 +427,11 @@ const Signup = () => {
                       name="confirmPassword"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>{translateSync("Confirm Password")}</FormLabel>
+                          <FormLabel>{languageT("Confirm Password")}</FormLabel>
                           <FormControl>
                             <div className="relative">
                               <Input 
-                                placeholder={translateSync("Confirm your password")}
+                                placeholder={languageT("Confirm your password")}
                                 type={showConfirmPassword ? "text" : "password"}
                                 className="h-12 pr-12"
                                 {...field} 
@@ -455,7 +455,7 @@ const Signup = () => {
 
                   <div className="flex justify-end">
                     <Button type="button" onClick={nextStep} className="bg-gradient-to-r from-secondary to-primary hover:from-secondary/90 hover:to-primary/90 text-primary-foreground">
-                      {translateSync("Next")} <ChevronRight className="w-4 h-4 ml-2" />
+                      {languageT("Next")} <ChevronRight className="w-4 h-4 ml-2" />
                     </Button>
                   </div>
                 </TabsContent>
@@ -466,7 +466,7 @@ const Signup = () => {
                     name="plan"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-lg">{translateSync("Choose Your Plan")}</FormLabel>
+                        <FormLabel className="text-lg">{languageT("Choose Your Plan")}</FormLabel>
                         <FormControl>
                           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             {plans.map((plan) => (
@@ -481,10 +481,10 @@ const Signup = () => {
                               >
                                 <CardHeader className="text-center">
                                   <div className="text-4xl mb-2">{plan.emoji}</div>
-                                  <CardTitle className="text-lg">{translateSync(plan.name)}</CardTitle>
+                                  <CardTitle className="text-lg">{languageT(plan.name)}</CardTitle>
                                   <div className="text-2xl font-bold text-farm-primary">{plan.price}</div>
                                   <CardDescription className="text-sm">
-                                    {translateSync(plan.description)}
+                                    {languageT(plan.description)}
                                   </CardDescription>
                                 </CardHeader>
                                 <CardContent>
@@ -492,20 +492,20 @@ const Signup = () => {
                                     {plan.features.map((feature, index) => (
                                       <li key={index} className="flex items-center gap-2 text-sm">
                                         <Check className="w-4 h-4 text-farm-accent" />
-                                        {translateSync(feature)}
+                                        {languageT(feature)}
                                       </li>
                                     ))}
                                   </ul>
                                   {plan.excludedFeatures && plan.excludedFeatures.length > 0 && (
                                     <div className="mt-4 pt-4 border-t border-border">
                                       <p className="text-xs text-muted-foreground mb-2">
-                                        {translateSync("Not included:")}
+                                        {languageT("Not included:")}
                                       </p>
                                       <ul className="space-y-1">
                                         {plan.excludedFeatures.map((feature, index) => (
                                           <li key={index} className="flex items-center gap-2 text-xs text-muted-foreground">
                                             <div className="w-3 h-3 rounded-full border border-muted-foreground/30" />
-                                            {translateSync(feature)}
+                                            {languageT(feature)}
                                           </li>
                                         ))}
                                       </ul>
@@ -515,7 +515,7 @@ const Signup = () => {
                                     <div className="mt-4 text-center">
                                       <div className="inline-flex items-center gap-2 bg-farm-primary text-white px-3 py-1 rounded-full text-sm">
                                         <Check className="w-4 h-4" />
-                                        {translateSync("Selected")}
+                                        {languageT("Selected")}
                                       </div>
                                     </div>
                                   )}
@@ -531,7 +531,7 @@ const Signup = () => {
 
                   <div className="flex justify-between">
                     <Button type="button" variant="outline" onClick={() => setStep('profile')}>
-                      <ChevronLeft className="w-4 h-4 mr-2" /> {translateSync("Back")}
+                      <ChevronLeft className="w-4 h-4 mr-2" /> {languageT("Back")}
                     </Button>
                     <Button 
                       type="submit" 
@@ -539,8 +539,8 @@ const Signup = () => {
                       disabled={form.formState.isSubmitting || !selectedPlan}
                     >
                       {form.formState.isSubmitting 
-                        ? translateSync("Creating Account...") 
-                        : translateSync("Create Account")
+                        ? languageT("Creating Account...") 
+                        : languageT("Create Account")
                       }
                     </Button>
                   </div>
@@ -555,7 +555,7 @@ const Signup = () => {
             </div>
             <div className="relative flex justify-center text-xs uppercase">
               <span className="bg-background px-2 text-muted-foreground">
-                {translateSync("Or continue with")}
+                {languageT("Or continue with")}
               </span>
             </div>
           </div>
@@ -584,17 +584,17 @@ const Signup = () => {
                 fill="#EA4335"
               />
             </svg>
-            {translateSync("Sign up with Google")}
+            {languageT("Sign up with Google")}
           </Button>
 
           <div className="text-center">
             <p className="text-sm text-muted-foreground">
-              {translateSync("Already have an account?")}{" "}
+              {languageT("Already have an account?")}{" "}
               <Link
                 to="/login"
                 className="font-medium text-farm-primary hover:text-farm-accent transition-colors"
               >
-                {translateSync("Sign in")}
+                {languageT("Sign in")}
               </Link>
             </p>
           </div>

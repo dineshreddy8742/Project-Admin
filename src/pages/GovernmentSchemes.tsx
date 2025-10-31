@@ -26,7 +26,7 @@ import {
 } from 'lucide-react';
 
 const GovernmentSchemes = () => {
-  const { translateSync } = useLanguage();
+  const { t } = useLanguage();
   const [query, setQuery] = useState('');
   const [isListening, setIsListening] = useState(false);
   const [selectedScheme, setSelectedScheme] = useState<string | null>(null);
@@ -49,8 +49,8 @@ const GovernmentSchemes = () => {
         setHelpCenters(helpCentersData);
       } catch (error) {
         toast({
-          title: translateSync("Error"),
-          description: translateSync("Failed to load government schemes data. Please try again."),
+          title: t("Error"),
+          description: t("Failed to load government schemes data. Please try again."),
           variant: "destructive"
         });
       } finally {
@@ -89,15 +89,15 @@ const GovernmentSchemes = () => {
       
       if (searchResults.length === 0) {
         toast({
-          title: translateSync("No Results"),
-          description: translateSync("No schemes found matching your search criteria."),
+          title: t("No Results"),
+          description: t("No schemes found matching your search criteria."),
           variant: "default"
         });
       }
     } catch (error) {
         toast({
-          title: translateSync("Search Error"),
-          description: translateSync("Failed to search schemes. Please try again."),
+          title: t("Search Error"),
+          description: t("Failed to search schemes. Please try again."),
           variant: "destructive"
         });
     } finally {
@@ -126,8 +126,8 @@ const GovernmentSchemes = () => {
       recognition.onerror = () => {
         setIsListening(false);
         toast({
-          title: translateSync("Voice Recognition Error"),
-          description: translateSync("Could not recognize voice input. Please try again."),
+          title: t("Voice Recognition Error"),
+          description: t("Could not recognize voice input. Please try again."),
           variant: "destructive"
         });
       };
@@ -162,8 +162,8 @@ const GovernmentSchemes = () => {
       recognition.onerror = () => {
         setIsListening(false);
         toast({
-          title: translateSync("Voice Recognition Error"),
-          description: translateSync("Could not recognize voice input. Please try again."),
+          title: t("Voice Recognition Error"),
+          description: t("Could not recognize voice input. Please try again."),
           variant: "destructive"
         });
       };
@@ -188,15 +188,15 @@ const GovernmentSchemes = () => {
       const result = await governmentSchemesService.applyForScheme(schemeId, {});
       if (result.success) {
         toast({
-          title: translateSync("Application Submitted"),
-          description: translateSync(`Your application has been submitted successfully. Application ID: ${result.applicationId}`),
+          title: t("Application Submitted"),
+          description: t(`Your application has been submitted successfully. Application ID: ${result.applicationId}`),
           variant: "default"
         });
       }
     } catch (error) {
       toast({
-        title: translateSync("Application Error"),
-        description: translateSync("Failed to submit application. Please try again later."),
+        title: t("Application Error"),
+        description: t("Failed to submit application. Please try again later."),
         variant: "destructive"
       });
     }
@@ -212,10 +212,10 @@ const GovernmentSchemes = () => {
           className="text-center"
         >
           <h1 className="text-hero text-primary font-indian mb-2">
-            🏛️ {translateSync('Government Schemes')}
+            🏛️ {t('Government Schemes')}
           </h1>
           <p className="text-lg text-muted-foreground">
-            {translateSync('Government schemes and subsidies for farmers')}
+            {t('Government schemes and subsidies for farmers')}
           </p>
         </motion.div>
 
@@ -229,7 +229,7 @@ const GovernmentSchemes = () => {
             <CardHeader>
               <CardTitle className="flex items-center space-x-2">
                 <Mic className="h-5 w-5 text-primary" />
-                <span>{translateSync('Ask About Schemes')}</span>
+                <span>{t('Ask About Schemes')}</span>
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
@@ -237,7 +237,7 @@ const GovernmentSchemes = () => {
                   <div className="flex-1 relative">
                     <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
                     <Input
-                      placeholder={translateSync("Search schemes or ask questions")}
+                      placeholder={t("Search schemes or ask questions")}
                       value={query}
                       onChange={(e) => setQuery(e.target.value)}
                       onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
@@ -305,7 +305,7 @@ const GovernmentSchemes = () => {
                     size="sm"
                     className="text-xs"
                   >
-                    {translateSync(topic)} {translateSync('Schemes')}
+                    {t(topic)} {t('Schemes')}
                   </Button>
                 ))}
               </div>
@@ -339,7 +339,7 @@ const GovernmentSchemes = () => {
             ))
           ) : schemes.length === 0 ? (
             <div className="col-span-full text-center py-8">
-              <p className="text-muted-foreground">{translateSync('No schemes found. Try a different search term.')}</p>
+              <p className="text-muted-foreground">{t('No schemes found. Try a different search term.')}</p>
             </div>
           ) : (
             schemes.map((scheme, index) => (
@@ -361,7 +361,7 @@ const GovernmentSchemes = () => {
                       {scheme.category}
                     </Badge>
                     <Badge variant={scheme.status === 'active' ? 'default' : 'destructive'}>
-                      {scheme.status === 'active' ? translateSync('Active') : translateSync('Closed')}
+                      {scheme.status === 'active' ? t('Active') : t('Closed')}
                     </Badge>
                   </div>
                   <CardTitle className="text-lg">{scheme.name}</CardTitle>
@@ -369,18 +369,18 @@ const GovernmentSchemes = () => {
                 <CardContent className="space-y-4">
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <p className="text-sm text-muted-foreground">{translateSync('Subsidy')}</p>
+                      <p className="text-sm text-muted-foreground">{t('Subsidy')}</p>
                       <p className="font-bold text-green-600">{scheme.subsidy}</p>
                     </div>
                     <div>
-                      <p className="text-sm text-muted-foreground">{translateSync('Max Amount')}</p>
+                      <p className="text-sm text-muted-foreground">{t('Max Amount')}</p>
                       <p className="font-bold text-primary">{scheme.maxAmount}</p>
                     </div>
                   </div>
 
                   <div className="flex items-center space-x-2 text-sm">
                     <Clock className="h-4 w-4 text-muted-foreground" />
-                    <span>{translateSync('Deadline')}: {scheme.deadline}</span>
+                    <span>{t('Deadline')}: {scheme.deadline}</span>
                   </div>
 
                   <div className="pt-2">
@@ -390,7 +390,7 @@ const GovernmentSchemes = () => {
                       size="sm"
                       onClick={() => setSelectedScheme(scheme.id)}
                     >
-                      {translateSync('View Details')}
+                      {t('View Details')}
                     </Button>
                   </div>
                 </CardContent>
@@ -420,7 +420,7 @@ const GovernmentSchemes = () => {
                         <CardTitle className="text-xl">{scheme.name}</CardTitle>
                         <div className="flex space-x-2">
                           <Badge variant="secondary">{scheme.category}</Badge>
-                          <Badge className="bg-green-500">{scheme.subsidy} {translateSync('Subsidy')}</Badge>
+                          <Badge className="bg-green-500">{scheme.subsidy} {t('Subsidy')}</Badge>
                         </div>
                       </div>
                     </CardHeader>
@@ -429,7 +429,7 @@ const GovernmentSchemes = () => {
                         <AccordionItem value="eligibility">
                           <AccordionTrigger className="flex items-center space-x-2">
                             <Users className="h-4 w-4" />
-                            <span>{translateSync('Eligibility Criteria')}</span>
+                            <span>{t('Eligibility Criteria')}</span>
                           </AccordionTrigger>
                           <AccordionContent>
                             <ul className="space-y-2">
@@ -452,7 +452,7 @@ const GovernmentSchemes = () => {
                         <AccordionItem value="documents">
                           <AccordionTrigger className="flex items-center space-x-2">
                             <FileText className="h-4 w-4" />
-                            <span>{translateSync('Required Documents')}</span>
+                            <span>{t('Required Documents')}</span>
                           </AccordionTrigger>
                           <AccordionContent>
                             <ul className="space-y-2">
@@ -475,7 +475,7 @@ const GovernmentSchemes = () => {
                         <AccordionItem value="benefits">
                           <AccordionTrigger className="flex items-center space-x-2">
                             <Banknote className="h-4 w-4" />
-                            <span>{translateSync('Benefits')}</span>
+                            <span>{t('Benefits')}</span>
                           </AccordionTrigger>
                           <AccordionContent>
                             <ul className="space-y-2">
@@ -498,7 +498,7 @@ const GovernmentSchemes = () => {
                         <AccordionItem value="process">
                           <AccordionTrigger className="flex items-center space-x-2">
                             <Building2 className="h-4 w-4" />
-                            <span>{translateSync('Application Process')}</span>
+                            <span>{t('Application Process')}</span>
                           </AccordionTrigger>
                           <AccordionContent>
                             <ol className="space-y-2">
@@ -527,10 +527,10 @@ const GovernmentSchemes = () => {
                           onClick={() => handleApplyScheme(scheme.id)}
                         >
                           <ExternalLink className="h-4 w-4 mr-2" />
-                          {translateSync('Apply Now')}
+                          {t('Apply Now')}
                         </Button>
                         <Button variant="outline" className="flex-1">
-                          {translateSync('Download Form')}
+                          {t('Download Form')}
                         </Button>
                       </div>
                     </CardContent>
@@ -551,7 +551,7 @@ const GovernmentSchemes = () => {
             <CardHeader>
               <CardTitle className="flex items-center space-x-2">
                 <MapPin className="h-5 w-5 text-primary" />
-                <span>{translateSync('Nearest Help Centers')}</span>
+                <span>{t('Nearest Help Centers')}</span>
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -575,17 +575,17 @@ const GovernmentSchemes = () => {
                           <span className="text-xs">{center.phone}</span>
                         </div>
                         <div className="flex items-center space-x-1">
-                          <MapPin className="h-3 w-3 text-muted-foreground" />
+                          <MapPin className="h-3 w-4 w-3 text-muted-foreground" />
                           <span className="text-xs">{center.distance}</span>
                         </div>
                       </div>
                     </div>
                     <div className="flex flex-col space-y-2">
                       <Button variant="outline" size="sm">
-                        {translateSync('Call')}
+                        {t('Call')}
                       </Button>
                       <Button variant="outline" size="sm">
-                        {translateSync('Directions')}
+                        {t('Directions')}
                       </Button>
                     </div>
                   </motion.div>

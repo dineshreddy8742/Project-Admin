@@ -82,11 +82,12 @@ class DynamicWorkflowEngine {
 
     if (message) {
         console.log("Returning message from step:", message);
+        eventBus.dispatch('workflow-message', message);
         return message;
     }
 
     // Continue to the next step immediately without delay for better UX
-    return this.executeNextStep();
+    return this.createBotMessage(''); // Return an empty message to allow the UI to update
   }
 
   private getSelector(page: string, elementName: string): string | undefined {
@@ -111,14 +112,7 @@ class DynamicWorkflowEngine {
                     if (processedStep.speak) {
                         console.log("Dispatching speak event for navigate:", processedStep.speak);
                         eventBus.dispatch('speak', processedStep.speak);
-                        const message: AIMessage = {
-                            id: new Date().toISOString(),
-                            content: processedStep.speak,
-                            sender: 'bot',
-                            timestamp: new Date(),
-                            detectedLanguage: this.activeWorkflow?.language || 'en',
-                        };
-                        eventBus.dispatch('workflow-message', message);
+                        return this.createBotMessage(processedStep.speak, this.activeWorkflow?.language);
                     }
                 }
                 // Continue to next step immediately after navigation
@@ -140,16 +134,7 @@ class DynamicWorkflowEngine {
                     console.log("Pausing workflow for user input, message:", processedStep.message);
                     eventBus.dispatch('speak', processedStep.message);
                     // Also dispatch a workflow message for the chat interface
-                    const message: AIMessage = {
-                        id: new Date().toISOString(),
-                        content: processedStep.message,
-                        sender: 'bot',
-                        timestamp: new Date(),
-                        detectedLanguage: this.activeWorkflow?.language || 'en',
-                    };
-                    eventBus.dispatch('workflow-message', message);
-                    // Return null to prevent duplicate messages - we already dispatched the message
-                    return null;
+                    return this.createBotMessage(processedStep.message, this.activeWorkflow?.language);
                 }
                 break;
             case 'if':
@@ -169,26 +154,12 @@ class DynamicWorkflowEngine {
                     console.log("Dispatching speak event with message:", processedStep.message);
                     eventBus.dispatch('speak', processedStep.message);
                     // Also dispatch a workflow message for the chat interface
-                    const message: AIMessage = {
-                        id: new Date().toISOString(),
-                        content: processedStep.message,
-                        sender: 'bot',
-                        timestamp: new Date(),
-                        detectedLanguage: this.activeWorkflow?.language || 'en',
-                    };
-                    eventBus.dispatch('workflow-message', message);
+                    return this.createBotMessage(processedStep.message, this.activeWorkflow?.language);
                 } else if (processedStep.target) {
                     // Handle case where target is used instead of message
                     console.log("Dispatching speak event with target:", processedStep.target);
                     eventBus.dispatch('speak', processedStep.target);
-                    const message: AIMessage = {
-                        id: new Date().toISOString(),
-                        content: processedStep.target,
-                        sender: 'bot',
-                        timestamp: new Date(),
-                        detectedLanguage: this.activeWorkflow?.language || 'en',
-                    };
-                    eventBus.dispatch('workflow-message', message);
+                    return this.createBotMessage(processedStep.target, this.activeWorkflow?.language);
                 }
                 // Continue to next step immediately after speaking
                 return null;
@@ -233,17 +204,9 @@ class DynamicWorkflowEngine {
         }
     
         // Dispatch error message to UI
-        const errorMsg: AIMessage = {
-            id: new Date().toISOString(),
-            content: errorMessage,
-            sender: 'bot',
-            timestamp: new Date(),
-            detectedLanguage: this.activeWorkflow?.language || 'en',
-        };
-        eventBus.dispatch('workflow-message', errorMsg);
         eventBus.dispatch('speak', errorMessage);
     
-        return null; // Don't return error message here since we already dispatched it
+        return this.createBotMessage(errorMessage, this.activeWorkflow?.language);
     }
   }
 

@@ -84,8 +84,8 @@ const SalesChart = () => {
         </div>
       </div>
       <div className="p-6">
-        <div className="h-80 w-full">
-          <ResponsiveContainer width="100%" height="100%">
+        <div className="h-80 w-full min-h-[320px]">
+          <ResponsiveContainer width="100%" height={320} minWidth={300} minHeight={320}>
             {chartType === 'line' ? (
               <LineChart data={getCurrentData()}>
                 <CartesianGrid strokeDasharray="3 3" stroke="var(--color-border)" />

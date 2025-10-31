@@ -10,7 +10,7 @@ import { Languages, Globe, Volume2, Download } from 'lucide-react';
 import { apiService } from '@/services/apiService';
 
 const RegionalLanguageSupport = () => {
-  const { currentLanguage, setLanguage } = useLanguage();
+  const { currentLanguage, changeLanguage } = useLanguage();
   const { toast } = useToast();
   const [inputText, setInputText] = useState('');
   const [translatedText, setTranslatedText] = useState('');

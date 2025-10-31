@@ -9,7 +9,7 @@ import { useToast } from '@/components/ui/use-toast';
 import { Search, Filter, Heart, ShoppingCart, Star, IndianRupee, MapPin, Package } from 'lucide-react';
 
 const PublicBrowsingInterface = () => {
-  const { translateSync } = useLanguage();
+  const { t: languageT } = useLanguage();
   const { toast } = useToast();
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');

@@ -48,7 +48,7 @@ interface CulturalStoryData {
 }
 
 import { useToast } from '@/components/ui/use-toast';
-import { useLanguage } from '@/contexts/LanguageContext';
+import { useLanguage } from '@/contexts/language-utils';
 
 
 

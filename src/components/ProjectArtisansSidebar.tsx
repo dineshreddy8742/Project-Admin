@@ -11,7 +11,7 @@ interface ProjectArtisansSidebarProps {
 }
 
 export const ProjectArtisansSidebar: React.FC<ProjectArtisansSidebarProps> = ({ onClose }) => {
-  const { translateSync } = useLanguage();
+  const { t: languageT } = useLanguage();
   const { userProfile } = useAuth();
 
   const navGroups = [
@@ -69,7 +69,7 @@ export const ProjectArtisansSidebar: React.FC<ProjectArtisansSidebarProps> = ({ 
           </Avatar>
           <div>
             <p className="font-semibold text-foreground text-lg">{userProfile?.name}</p>
-            <p className="text-sm text-muted-foreground">{translateSync('Artisan')}</p>
+            <p className="text-sm text-muted-foreground">{languageT('Artisan')}</p>
           </div>
         </div>
         <Button variant="ghost" size="icon" onClick={onClose} className="lg:hidden">
@@ -79,7 +79,7 @@ export const ProjectArtisansSidebar: React.FC<ProjectArtisansSidebarProps> = ({ 
       <nav className="flex-1 p-4 space-y-2 overflow-y-auto">
         {navGroups.map((group) => (
           <div key={group.title} className="py-3">
-            <h3 className="px-3 mb-3 text-xs font-semibold text-muted-foreground uppercase tracking-wider">{translateSync(group.title)}</h3>
+            <h3 className="px-3 mb-3 text-xs font-semibold text-muted-foreground uppercase tracking-wider">{languageT(group.title)}</h3>
             <div className="space-y-1">
               {group.items.map((item) => (
                 <NavLink
@@ -95,7 +95,7 @@ export const ProjectArtisansSidebar: React.FC<ProjectArtisansSidebarProps> = ({ 
                   }
                 >
                   {item.icon}
-                  <span className="flex-1">{translateSync(item.label)}</span>
+                  <span className="flex-1">{languageT(item.label)}</span>
                   {item.pro && (
                     <span className="text-xs font-semibold bg-gradient-to-r from-purple-500 to-pink-500 text-white px-2.5 py-0.5 rounded-full">PRO</span>
                   )}
@@ -108,7 +108,7 @@ export const ProjectArtisansSidebar: React.FC<ProjectArtisansSidebarProps> = ({ 
       <div className="p-5 border-t border-border mt-auto">
         <Button variant="outline" className="w-full justify-start gap-2 py-3">
           <LifeBuoy className="h-5 w-5" />
-          {translateSync('Help & Support')}
+          {languageT('Help & Support')}
         </Button>
       </div>
     </aside>

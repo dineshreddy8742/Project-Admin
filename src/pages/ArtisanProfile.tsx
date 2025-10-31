@@ -9,7 +9,7 @@ import { useToast } from '@/components/ui/use-toast';
 import { User, MapPin, Star, Package, Award, Calendar, IndianRupee, Mail, Phone, Globe, Camera } from 'lucide-react';
 
 const ArtisanProfile = () => {
-  const { translateSync } = useLanguage();
+  const { t: languageT } = useLanguage();
   const { toast } = useToast();
   const [artisanData, setArtisanData] = useState<any>(null);
   const [isEditing, setIsEditing] = useState(false);

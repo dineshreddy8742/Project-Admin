@@ -19,7 +19,7 @@ export const ArtisanNavbar: React.FC<ArtisanNavbarProps> = ({ onMenuToggle, isSi
   const [showProfile, setShowProfile] = useState(false);
   const [showLanguages, setShowLanguages] = useState(false);
 
-  const { currentLanguage, setLanguage, translate, translateSync } = useLanguage();
+  const { t: languageT, currentLanguage, setLanguage } = useLanguage();
   const { user, userProfile, signOut } = useAuth();
   const navigate = useNavigate();
   const [translatedTexts, setTranslatedTexts] = useState<Record<string, string>>({});
@@ -66,7 +66,7 @@ export const ArtisanNavbar: React.FC<ArtisanNavbarProps> = ({ onMenuToggle, isSi
 
       for (const text of textsToTranslate) {
         try {
-          translated[text] = await translate(text);
+          translated[text] = languageT(text);
         } catch (error) {
           translated[text] = text;
         }
@@ -76,9 +76,9 @@ export const ArtisanNavbar: React.FC<ArtisanNavbarProps> = ({ onMenuToggle, isSi
     };
 
     translateStaticTexts();
-  }, [currentLanguage, translate]);
+  }, [currentLanguage, languageT]);
 
-  const t = (text: string) => translatedTexts[text] || translateSync(text) || text;
+  const t = (text: string) => translatedTexts[text] || languageT(text) || text;
 
   return (
     <motion.nav
@@ -121,7 +121,7 @@ export const ArtisanNavbar: React.FC<ArtisanNavbarProps> = ({ onMenuToggle, isSi
                 Project Kisan
               </h1>
               <p className="text-xs text-muted-foreground hidden sm:block">
-                {translateSync('Digital Farming Assistant')}
+                {t('Digital Farming Assistant')}
               </p>
             </div>
           </motion.div>
@@ -131,7 +131,7 @@ export const ArtisanNavbar: React.FC<ArtisanNavbarProps> = ({ onMenuToggle, isSi
             className="hover:bg-primary/10 transition-bounce"
           >
             <img src={artisanAvatar} alt="Artisan" className="h-6 w-6 mr-2" />
-            {translateSync('Project Artisans')}
+            {t('Project Artisans')}
           </Button>
         </div>
 
@@ -200,13 +200,13 @@ export const ArtisanNavbar: React.FC<ArtisanNavbarProps> = ({ onMenuToggle, isSi
                 <h3 className="font-semibold mb-3">{t('Notifications')}</h3>
                 <div className="space-y-2">
                   <div className="p-2 bg-accent/10 rounded text-sm">
-                    🛍️ {translateSync('New order received for your products')}
+                    🛍️ {t('New order received for your products')}
                   </div>
                   <div className="p-2 bg-primary/10 rounded text-sm">
-                    ⭐ {translateSync('New review on your artisan products')}
+                    ⭐ {t('New review on your artisan products')}
                   </div>
                   <div className="p-2 bg-secondary/10 rounded text-sm">
-                    📈 {translateSync('Your product views increased by 25%')}
+                    📈 {t('Your product views increased by 25%')}
                   </div>
                 </div>
               </motion.div>
@@ -252,8 +252,8 @@ export const ArtisanNavbar: React.FC<ArtisanNavbarProps> = ({ onMenuToggle, isSi
                     </AvatarFallback>
                   </Avatar>
                   <div>
-                    <h4 className="font-semibold">{userProfile?.name || translateSync('Artisan')}</h4>
-                    <p className="text-sm text-muted-foreground">{userProfile?.email || translateSync('Project Artisans Platform')}</p>
+                    <h4 className="font-semibold">{userProfile?.name || t('Artisan')}</h4>
+                    <p className="text-sm text-muted-foreground">{userProfile?.email || t('Project Artisans Platform')}</p>
                   </div>
                 </div>
                 <div className="space-y-2">

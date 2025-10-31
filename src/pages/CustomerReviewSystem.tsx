@@ -10,7 +10,7 @@ import { useToast } from '@/components/ui/use-toast';
 import { Star, User, Calendar, Package, MessageCircle, ThumbsUp, ThumbsDown, Filter } from 'lucide-react';
 
 const CustomerReviewSystem = () => {
-  const { translateSync } = useLanguage();
+  const { t: languageT } = useLanguage();
   const { toast } = useToast();
   const [selectedProduct, setSelectedProduct] = useState('all');
   const [sortBy, setSortBy] = useState('newest');

@@ -10,7 +10,7 @@ import { Sparkles, History, IndianRupee, Loader2 } from 'lucide-react';
 import { apiService } from '@/services/apiService';
 
 const HeritageStoryGenerator = () => {
-  const { translateSync } = useLanguage();
+  const { t: languageT } = useLanguage();
   const { toast } = useToast();
   const [artifactDetails, setArtifactDetails] = useState({
     name: '',

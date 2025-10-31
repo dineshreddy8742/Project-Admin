@@ -12,6 +12,7 @@ import { useLanguage } from '../contexts/language-utils';
 import { useAuth } from '../contexts/ArtomartAuthContext.jsx';
 import { Eye, EyeOff, Leaf } from 'lucide-react';
 import { useToast } from '../hooks/use-toast';
+import LanguageSelector from '../components/LanguageSelector';
 
 const loginSchema = z.object({
   email: z.string().email('Invalid email address'),
@@ -34,7 +35,7 @@ const Login = () => {
       localStorage.removeItem('selectedRole'); // Clean up after use
     }
   }, []);
-  const { translateSync } = useLanguage();
+  const { t } = useLanguage();
   const navigate = useNavigate();
   const { toast } = useToast();
   const { signIn, signInWithGoogle, userProfile, profileLoading, updateProfile } = useAuth();
@@ -57,7 +58,7 @@ const Login = () => {
       if (error) {
         localStorage.removeItem('selectedRole'); // Clean up if sign-in fails
         toast({
-          title: translateSync("Login Failed"),
+          title: t("Login Failed"),
           description: error.message,
           variant: "destructive",
         });
@@ -65,15 +66,15 @@ const Login = () => {
       }
 
       toast({
-        title: translateSync("Login Successful"),
-        description: translateSync("Welcome back to AgriTech!"),
+        title: t("Login Successful"),
+        description: t("Welcome back to AgriTech!"),
       });
 
     } catch (error) {
       localStorage.removeItem('selectedRole'); // Clean up on error
       toast({
-        title: translateSync("Login Failed"),
-        description: translateSync("An unexpected error occurred"),
+        title: t("Login Failed"),
+        description: t("An unexpected error occurred"),
         variant: "destructive",
       });
     }
@@ -87,7 +88,7 @@ const Login = () => {
         // For admin, show role selection modal before navigating
         setShowAdminRoleSelection(true);
       } else if (userRole === 'artifact_seller') {
-        navigate('/artisan/dashboard');
+        navigate('/artisans/dashboard');
       } else {
         navigate('/dashboard');
       }
@@ -97,8 +98,8 @@ const Login = () => {
   const handleGoogleSignIn = async () => {
     if (!selectedRole) {
       toast({
-        title: translateSync("Role Required"),
-        description: translateSync("Please select your role before signing in with Google"),
+        title: t("Role Required"),
+        description: t("Please select your role before signing in with Google"),
         variant: "destructive",
       });
       return;
@@ -112,7 +113,7 @@ const Login = () => {
       if (error) {
         localStorage.removeItem('selectedRole');
         toast({
-          title: translateSync("Google Sign-In Failed"),
+          title: t("Google Sign-In Failed"),
           description: error.message,
           variant: "destructive",
         });
@@ -120,14 +121,17 @@ const Login = () => {
     } catch (error) {
       localStorage.removeItem('selectedRole');
       toast({
-        title: translateSync("Google Sign-In Failed"),
-        description: translateSync("An unexpected error occurred"),
+        title: t("Google Sign-In Failed"),
+        description: t("An unexpected error occurred"),
         variant: "destructive",
       });
     }
   };
   return (
     <div className="min-h-screen bg-gradient-to-br from-farm-primary/5 via-background to-farm-accent/5 flex items-center justify-center p-4 relative overflow-hidden">
+      <div className="absolute top-4 right-4 z-10">
+        <LanguageSelector />
+      </div>
       <div className="absolute inset-0 bg-grid-pattern opacity-5" />
       
       {/* Enhanced floating animations */}
@@ -152,10 +156,10 @@ const Login = () => {
             <Leaf className="w-8 h-8 text-white animate-wiggle" />
           </div>
           <CardTitle className="text-2xl font-bold bg-gradient-to-r from-farm-primary via-farm-accent to-farm-primary bg-clip-text text-white animate-gradient-text">
-            🌟 {translateSync("Welcome Back")} 🌟
+            🌟 {t("Welcome Back")} 🌟
           </CardTitle>
           <CardDescription className="text-muted-foreground animate-fade-in-up">
-            🚀 {translateSync("Sign in to your AgriTech account")}
+            🚀 {t("Sign in to your AgriTech account")}
           </CardDescription>
         </CardHeader>
 
@@ -167,11 +171,11 @@ const Login = () => {
                 name="email"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel htmlFor="email">{translateSync("Email")}</FormLabel>
+                    <FormLabel htmlFor="email">{t("Email")}</FormLabel>
                     <FormControl>
                       <Input 
                         id="email"
-                        placeholder={translateSync("Enter your email")}
+                        placeholder={t("Enter your email")}
                         type="email"
                         autoComplete="email"
                         className="h-12"
@@ -188,12 +192,12 @@ const Login = () => {
                 name="password"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel htmlFor="password">{translateSync("Password")}</FormLabel>
+                    <FormLabel htmlFor="password">{t("Password")}</FormLabel>
                     <FormControl>
                       <div className="relative">
                         <Input 
                           id="password"
-                          placeholder={translateSync("Enter your password")}
+                          placeholder={t("Enter your password")}
                           type={showPassword ? "text" : "password"}
                           autoComplete="current-password"
                           className="h-12 pr-12"
@@ -224,17 +228,17 @@ const Login = () => {
                 name="role"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel htmlFor="role">{translateSync("Login as")}</FormLabel>
+                    <FormLabel htmlFor="role">{t("Login as")}</FormLabel>
                     <Select onValueChange={(value) => { field.onChange(value); setSelectedRole(value); }} defaultValue={field.value}>
                       <FormControl>
                         <SelectTrigger id="role" className="h-12">
-                          <SelectValue placeholder={translateSync("Select your role")} />
+                          <SelectValue placeholder={t("Select your role")} />
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        <SelectItem value="farmer">{translateSync("Farmer")}</SelectItem>
-                        <SelectItem value="artifact_seller">{translateSync("Artisan")}</SelectItem>
-                        <SelectItem value="admin">{translateSync("Administrator")}</SelectItem>
+                        <SelectItem value="farmer">{t("Farmer")}</SelectItem>
+                        <SelectItem value="artifact_seller">{t("Artisan")}</SelectItem>
+                        <SelectItem value="admin">{t("Administrator")}</SelectItem>
                       </SelectContent>
                     </Select>
                     <FormMessage />
@@ -247,7 +251,7 @@ const Login = () => {
                 className="w-full h-12 bg-gradient-to-r from-farm-primary to-farm-accent hover:from-farm-primary/90 hover:to-farm-accent/90 transition-all duration-300"
                 disabled={form.formState.isSubmitting}
               >
-                {form.formState.isSubmitting ? translateSync("Signing in...") : translateSync("Sign In")}
+                {form.formState.isSubmitting ? t("Signing in...") : t("Sign In")}
               </Button>
             </form>
           </Form>
@@ -258,7 +262,7 @@ const Login = () => {
             </div>
             <div className="relative flex justify-center text-xs uppercase">
               <span className="bg-background px-2 text-muted-foreground">
-                {translateSync("Or continue with")}
+                {t("Or continue with")}
               </span>
             </div>
           </div>
@@ -287,17 +291,17 @@ const Login = () => {
                 fill="#EA4335"
               />
             </svg>
-            {translateSync("Sign in with Google")}
+            {t("Sign in with Google")}
           </Button>
 
           <div className="text-center">
             <p className="text-sm text-muted-foreground">
-              {translateSync("Don't have an account?")}{" "}
+              {t("Don't have an account?")}{" "}
               <Link
                 to="/signup"
                 className="font-medium text-farm-primary hover:text-farm-accent transition-colors"
               >
-                {translateSync("Sign up")}
+                {t("Sign up")}
               </Link>
             </p>
           </div>
@@ -307,35 +311,45 @@ const Login = () => {
       {/* Admin Role Selection Modal */}
       {showAdminRoleSelection && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-          <Card className="w-full max-w-md shadow-2xl border-0 bg-card/80 backdrop-blur-sm">
-            <CardHeader className="text-center">
-              <CardTitle className="text-xl font-bold bg-gradient-to-r from-farm-primary to-farm-accent bg-clip-text text-transparent">
-                {translateSync("Select Admin Role")}
+          <Card className="w-full max-w-md shadow-2xl border-0 bg-card/80 backdrop-blur-sm animate-fade-in">
+            <CardHeader className="text-center space-y-4">
+              <div className="mx-auto w-16 h-16 bg-gradient-to-br from-farm-primary to-farm-accent rounded-full flex items-center justify-center">
+                <Leaf className="w-8 h-8 text-white" />
+              </div>
+              <CardTitle className="text-2xl font-bold bg-gradient-to-r from-farm-primary to-farm-accent bg-clip-text text-transparent">
+                {t("Admin Dashboard Access")}
               </CardTitle>
-              <CardDescription>
-                {translateSync("Choose which dashboard to access")}
+              <CardDescription className="text-base">
+                {t("Administrator, choose which dashboard to access")}
               </CardDescription>
             </CardHeader>
-            <CardContent className="space-y-4">
-              <Button
-                onClick={() => {
-                  navigate('/admin/dashboard');
-                  setShowAdminRoleSelection(false);
-                }}
-                className="w-full h-12 bg-gradient-to-r from-farm-primary to-farm-accent hover:from-farm-primary/90 hover:to-farm-accent/90"
-              >
-                {translateSync("Admin Dashboard")}
-              </Button>
-              <Button
-                onClick={() => {
-                  navigate('/artisan/dashboard');
-                  setShowAdminRoleSelection(false);
-                }}
-                variant="outline"
-                className="w-full h-12"
-              >
-                {translateSync("Artisan Dashboard")}
-              </Button>
+            <CardContent className="space-y-6 pb-6">
+              <div className="space-y-4">
+                <Button
+                  onClick={() => {
+                    navigate('/admin/dashboard');
+                    setShowAdminRoleSelection(false);
+                  }}
+                  className="w-full h-14 bg-gradient-to-r from-farm-primary to-farm-accent hover:from-farm-primary/90 hover:to-farm-accent/90 transition-all duration-300 text-lg flex items-center justify-center gap-2"
+                >
+                  <Shield className="h-5 w-5" />
+                  {t("Admin Dashboard")}
+                </Button>
+                <Button
+                  onClick={() => {
+                    navigate('/artisans/dashboard');
+                    setShowAdminRoleSelection(false);
+                  }}
+                  variant="outline"
+                  className="w-full h-14 hover:bg-farm-primary/10 transition-all duration-300 text-lg flex items-center justify-center gap-2"
+                >
+                  <Package className="h-5 w-5" />
+                  {t("Artisan Dashboard")}
+                </Button>
+              </div>
+              <p className="text-center text-sm text-muted-foreground">
+                {t("Choose the dashboard that matches your current role")}
+              </p>
             </CardContent>
           </Card>
         </div>

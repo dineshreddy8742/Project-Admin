@@ -11,7 +11,7 @@ import { Users, TrendingUp, Eye, ShoppingCart, Heart, MapPin, Clock, Loader2 } f
 import { apiService } from '@/services/apiService';
 
 const CustomerBehaviorInsights = () => {
-  const { translateSync } = useLanguage();
+  const { t: languageT } = useLanguage();
   const { toast } = useToast();
   const [timeRange, setTimeRange] = useState('30d');
   const [behaviorData, setBehaviorData] = useState<any[]>([]);
@@ -276,8 +276,8 @@ const CustomerBehaviorInsights = () => {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="h-80">
-              <ResponsiveContainer width="100%" height="100%">
+            <div className="h-80 min-h-[320px]">
+              <ResponsiveContainer width="100%" height={320} minWidth={300} minHeight={320}>
                 <LineChart data={behaviorData}>
                   <CartesianGrid strokeDasharray="3 3" strokeOpacity={0.2} />
                   <XAxis dataKey="date" />
@@ -311,8 +311,8 @@ const CustomerBehaviorInsights = () => {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="h-80">
-              <ResponsiveContainer width="100%" height="100%">
+            <div className="h-80 min-h-[320px]">
+              <ResponsiveContainer width="100%" height={320} minWidth={300} minHeight={320}>
                 <BarChart data={behaviorData}>
                   <CartesianGrid strokeDasharray="3 3" strokeOpacity={0.2} />
                   <XAxis dataKey="date" />
@@ -345,8 +345,8 @@ const CustomerBehaviorInsights = () => {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="h-80">
-              <ResponsiveContainer width="100%" height="100%">
+            <div className="h-80 min-h-[320px]">
+              <ResponsiveContainer width="100%" height={320} minWidth={300} minHeight={320}>
                 <BarChart data={regionData.slice(0, 5)}>
                   <CartesianGrid strokeDasharray="3 3" strokeOpacity={0.2} />
                   <XAxis dataKey="name" />
@@ -371,8 +371,8 @@ const CustomerBehaviorInsights = () => {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="h-80">
-              <ResponsiveContainer width="100%" height="100%">
+            <div className="h-80 min-h-[320px]">
+              <ResponsiveContainer width="100%" height={320} minWidth={300} minHeight={320}>
                 <PieChart>
                   <Pie
                     data={deviceData}

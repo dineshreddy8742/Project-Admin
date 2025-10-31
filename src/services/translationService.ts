@@ -234,7 +234,11 @@ export const translateText = async (
 
     // If no API key is available, return original text or use any available mapping
     if (!API_KEY || API_KEY.trim() === '') {
-      console.log('No Google Translate API key found, using fallback translation');
+      // Only log once per session to reduce console noise
+      if (!window.translationWarningShown) {
+        console.warn('Google Translate API key not configured. Using fallback translations. Add VITE_GOOGLE_TRANSLATE_API_KEY to your .env file for full translation support.');
+        window.translationWarningShown = true;
+      }
       
       // Try to find a partial match in our mappings (more comprehensive search)
       for (const [key, translations] of Object.entries(translationMappings)) {

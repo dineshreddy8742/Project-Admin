@@ -18,7 +18,7 @@ import {
   Brain,
   Globe
 } from 'lucide-react';
-import { useLanguage } from '@/contexts/LanguageContext';
+import { useLanguage } from '@/contexts/language-utils';
 import { languages } from '@/contexts/language-utils';
 import AnalysisReport from '@/components/AnalysisReport';
 import LoadingReport from '@/components/LoadingReport';
@@ -292,7 +292,7 @@ const parseAnalysisResult = (analysisText: string) => {
 };
 
 const DiseaseDetector: React.FC = () => {
-  const { translateSync, currentLanguage } = useLanguage();
+  const { t: languageT, currentLanguage } = useLanguage();
   const [mode, setMode] = useState<DetectorMode>('normal');
   const [selectedCrop, setSelectedCrop] = useState<Crop | null>(null);
   const [selectedImage, setSelectedImage] = useState<File | null>(null);

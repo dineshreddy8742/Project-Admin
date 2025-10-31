@@ -9,7 +9,7 @@ import { useToast } from '@/components/ui/use-toast';
 import { BookOpen, Award, Clock, Users, MapPin, IndianRupee, Star, Play, Eye, Download } from 'lucide-react';
 
 const CraftEducationModules = () => {
-  const { translateSync } = useLanguage();
+  const { t: languageT } = useLanguage();
   const { toast } = useToast();
   const [selectedModule, setSelectedModule] = useState<any>(null);
   const [courseProgress, setCourseProgress] = useState<Record<string, number>>({});

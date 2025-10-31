@@ -14,6 +14,7 @@ const AIChatAssistant = ({
   onProductClick = () => {}
 }) => {
   const { userProfile } = useAuth();
+  const { t } = useLanguage(); // Add language context
   const [currentAgent, setCurrentAgent] = useState('farming'); // Default to farming
   // Determine agent based on user role
   useEffect(() => {
@@ -51,13 +52,13 @@ const AIChatAssistant = ({
   
   // Define suggestions based on agent type
   const suggestions = currentAgent === 'artisan' ? [
-    { title: 'Open My Products', reason: 'Manage your product listings' },
-    { title: 'Open My Orders', reason: 'Track customer orders' },
-    { title: 'Open Marketing Hub', reason: 'Promote your crafts' }
+    { title: t('navbar.products'), reason: t('aiAssistant.suggestionManageProducts') },
+    { title: t('navbar.orders'), reason: t('aiAssistant.suggestionTrackOrders') },
+    { title: t('navbar.marketing'), reason: t('aiAssistant.suggestionPromote') }
   ] : [
-    { title: 'Open Crop Recommendation', reason: 'AI-based crop selection' },
-    { title: 'Open Disease Detector', reason: 'Identify crop diseases' },
-    { title: 'Open Cold Storage', reason: 'Find storage solutions' }
+    { title: t('dashboard.cropRecommendation'), reason: t('aiAssistant.suggestionCropSelection') },
+    { title: t('dashboard.diseaseDetector'), reason: t('aiAssistant.suggestionDiseaseIdentify') },
+    { title: t('dashboard.coldStorage'), reason: t('aiAssistant.suggestionStorage') }
   ];
 
   useEffect(() => {
@@ -219,8 +220,8 @@ const AIChatAssistant = ({
             <Icon name={agentInfo[currentAgent].icon} size={20} />
           </div>
           <div>
-            <h3 className="font-semibold">{agentInfo[currentAgent].name}</h3>
-            <p className="text-sm text-blue-100">{agentInfo[currentAgent].name} for Art O Mart</p>
+            <h3 className="font-semibold">{t('aiAssistant.title')}</h3>
+            <p className="text-sm text-blue-100">{t('aiAssistant.title')}</p>
           </div>
         </div>
         <div className="flex items-center space-x-2">
@@ -340,7 +341,7 @@ const AIChatAssistant = ({
               value={inputMessage}
               onChange={(e) => setInputMessage(e.target.value)}
               onKeyPress={handleKeyPress}
-              placeholder="Ask about products, cultural context, trust verification..."
+              placeholder={t('aiAssistant.placeholder')}
               className="w-full p-3 border border-gray-300 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-blue-500"
               rows={1}
               style={{ minHeight: '44px', maxHeight: '120px' }}

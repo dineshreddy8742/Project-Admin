@@ -31,7 +31,7 @@ interface ProductCardProps {
 const ProductCard: React.FC<ProductCardProps> = React.memo(({ product, isInWishlist, onWishlistToggle, onCategoryClick }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
   const [imageError, setImageError] = useState(false);
-  const { translateSync } = useLanguage();
+  const { t: languageT } = useLanguage();
   const { addToCart, isInCart } = useCart();
   const [isAddingToCart, setIsAddingToCart] = useState(false);
   const navigate = useNavigate();
@@ -130,7 +130,7 @@ const ProductCard: React.FC<ProductCardProps> = React.memo(({ product, isInWishl
             onWishlistToggle(product);
           }}
           className="absolute top-3 right-3 z-10 p-2 bg-background rounded-full shadow-md hover:bg-muted transition-colors"
-          aria-label={isInWishlist ? translateSync('Remove from wishlist') : translateSync('Add to wishlist')}
+          aria-label={isInWishlist ? languageT('Remove from wishlist') : languageT('Add to wishlist')}
         >
           <FiHeart
             className={`w-5 h-5 ${isInWishlist ? 'text-red-500 fill-current' : 'text-muted-foreground'}`}
@@ -147,8 +147,8 @@ const ProductCard: React.FC<ProductCardProps> = React.memo(({ product, isInWishl
               : isAddingToCart 
                 ? 'bg-blue-500 text-white' 
                 : 'bg-background hover:bg-muted'
-          }`}
-          aria-label={isInCart(product.id) ? translateSync('In cart') : translateSync('Add to cart')}
+          }
+          aria-label={isInCart(product.id) ? languageT('In cart') : languageT('Add to cart')}
         >
           {isAddingToCart ? (
             <span className="flex items-center justify-center w-5 h-5">
@@ -184,7 +184,7 @@ const ProductCard: React.FC<ProductCardProps> = React.memo(({ product, isInWishl
               <svg className="w-8 h-8 mb-1" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clipRule="evenodd" />
               </svg>
-              <span className="text-xs">{translateSync('Image unavailable')}</span>
+              <span className="text-xs">{languageT('Image unavailable')}</span>
             </div>
           )}
         </div>
@@ -220,7 +220,7 @@ const ProductCard: React.FC<ProductCardProps> = React.memo(({ product, isInWishl
               <span className="text-primary font-bold text-lg">₹{product.price}</span>
             )}
             <span className="text-xs text-muted-foreground flex items-center">
-              <FiTruck className="mr-1" /> {translateSync('Free delivery')}
+              <FiTruck className="mr-1" /> {languageT('Free delivery')}
             </span>
           </div>
         </div>

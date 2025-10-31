@@ -107,7 +107,7 @@ interface Order {
 }
 
 const GroceryMarketplace = () => {
-  const { translateSync } = useLanguage();
+  const { t: languageT, translateSync } = useLanguage();
   const { toast } = useToast();
   const { createProduct, loading } = useSupabase();
   
@@ -620,10 +620,10 @@ const GroceryMarketplace = () => {
           className="text-center"
         >
           <h1 className="text-hero text-primary font-indian mb-2">
-            {mode === 'grocery' ? '🛒' : '🏺'} {translateSync(mode === 'grocery' ? 'Grocery Marketplace' : 'Artifacts Marketplace')}
+            {mode === 'grocery' ? '🛒' : '🏺'} {languageT(mode === 'grocery' ? 'Grocery Marketplace' : 'Artifacts Marketplace')}
           </h1>
           <p className="text-lg text-muted-foreground">
-            {translateSync(mode === 'grocery' ? 'Buy and sell fresh groceries directly from farmers' : 'Buy and sell traditional farming artifacts and tools')}
+            {languageT(mode === 'grocery' ? 'Buy and sell fresh groceries directly from farmers' : 'Buy and sell traditional farming artifacts and tools')}
           </p>
         </motion.div>
 
@@ -691,7 +691,7 @@ const GroceryMarketplace = () => {
                 <div className="flex-1 relative">
                   <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
                   <Input
-                    placeholder={translateSync("Search products, sellers...")}
+                    placeholder={languageT("Search products, sellers...")}
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     className="pl-10"

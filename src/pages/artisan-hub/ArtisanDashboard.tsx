@@ -34,7 +34,7 @@ const mockOrders = [
 ];
 
 const ArtisanDashboard = () => {
-  const { translateSync } = useLanguage();
+  const { t: languageT } = useLanguage();
   const navigate = useNavigate();
   const { user } = useAuth();
   const [metrics, setMetrics] = useState<any>(mockMetrics);
@@ -42,10 +42,10 @@ const ArtisanDashboard = () => {
   const [orders, setOrders] = useState<any[]>(mockOrders);
 
   const quickActions = [
-    { title: translateSync('My Products'), icon: Box, color: 'bg-primary', route: '/artisans/products' },
-    { title: translateSync('My Orders'), icon: ShoppingBag, color: 'bg-secondary', route: '/artisans/orders' },
-    { title: translateSync('Marketing Hub'), icon: Lightbulb, color: 'bg-accent', route: '/artisans/marketing-hub' },
-    { title: translateSync('Add New Product'), icon: PlusCircle, color: 'bg-farm-leaf', route: '/artisans/add-product' },
+    { title: languageT('My Products'), icon: Box, color: 'bg-primary', route: '/artisans/products' },
+    { title: languageT('My Orders'), icon: ShoppingBag, color: 'bg-secondary', route: '/artisans/orders' },
+    { title: languageT('Marketing Hub'), icon: Lightbulb, color: 'bg-accent', route: '/artisans/marketing-hub' },
+    { title: languageT('Add New Product'), icon: PlusCircle, color: 'bg-farm-leaf', route: '/artisans/add-product' },
   ];
 
   const handleQuickAction = (route: string) => {
@@ -480,10 +480,10 @@ const ArtisanDashboard = () => {
     >
       <div className="text-center py-8">
         <h1 className="text-hero text-primary font-indian mb-4">
-          {translateSync("Project Artisans Dashboard")}
+          {languageT("Project Artisans Dashboard")}
         </h1>
         <p className="text-lg text-muted-foreground">
-          {translateSync("Manage your artisan products and connect with your audience")}
+          {languageT("Manage your artisan products and connect with your audience")}
         </p>
       </div>
 
@@ -493,7 +493,7 @@ const ArtisanDashboard = () => {
           <Card className="hover:shadow-glow transition-all bg-card">
             <CardContent className="p-6 flex items-center justify-between">
               <div>
-                <p className="text-sm text-muted-foreground mb-1">{translateSync("Total Sales")}</p>
+                <p className="text-sm text-muted-foreground mb-1">{languageT("Total Sales")}</p>
                 <h3 className="text-2xl font-bold text-foreground mb-2">₹{metrics.totalSales.toLocaleString()}</h3>
                 <div className="flex items-center gap-2 text-sm">
                   <span className="font-medium text-success">{metrics.salesChange}</span>
@@ -509,7 +509,7 @@ const ArtisanDashboard = () => {
           <Card className="hover:shadow-glow transition-all bg-card">
             <CardContent className="p-6 flex items-center justify-between">
               <div>
-                <p className="text-sm text-muted-foreground mb-1">{translateSync("Total Orders")}</p>
+                <p className="text-sm text-muted-foreground mb-1">{languageT("Total Orders")}</p>
                 <h3 className="text-2xl font-bold text-foreground mb-2">{metrics.totalOrders}</h3>
                 <div className="flex items-center gap-2 text-sm">
                   <span className="font-medium text-success">{metrics.ordersChange}</span>
@@ -525,7 +525,7 @@ const ArtisanDashboard = () => {
           <Card className="hover:shadow-glow transition-all bg-card">
             <CardContent className="p-6 flex items-center justify-between">
               <div>
-                <p className="text-sm text-muted-foreground mb-1">{translateSync("Active Products")}</p>
+                <p className="text-sm text-muted-foreground mb-1">{languageT("Active Products")}</p>
                 <h3 className="text-2xl font-bold text-foreground mb-2">{metrics.activeProducts}</h3>
                 <div className="flex items-center gap-2 text-sm">
                   <span className="font-medium text-success">{metrics.productsChange}</span>
@@ -541,7 +541,7 @@ const ArtisanDashboard = () => {
           <Card className="hover:shadow-glow transition-all bg-card">
             <CardContent className="p-6 flex items-center justify-between">
               <div>
-                <p className="text-sm text-muted-foreground mb-1">{translateSync("Trust Score")}</p>
+                <p className="text-sm text-muted-foreground mb-1">{languageT("Trust Score")}</p>
                 <h3 className="text-2xl font-bold text-foreground mb-2">{metrics.trustScore}</h3>
                 <div className="flex items-center gap-2 text-sm">
                   <span className="font-medium text-success">{metrics.trustChange}</span>

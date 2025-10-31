@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import { useToast } from '@/components/ui/use-toast';
 
 const AdminDashboard = () => {
-  const { translateSync } = useLanguage();
+  const { t } = useLanguage();
   const { toast } = useToast();
 
   const mockArtisans = [
@@ -56,10 +56,10 @@ const AdminDashboard = () => {
       transition={{ duration: 0.5 }}
       className="space-y-6"
     >
-      <h1 className="text-section-title text-primary font-indian">{translateSync("Admin Dashboard")}</h1>
+      <h1 className="text-section-title text-primary font-indian">{t("Admin Dashboard")}</h1>
       <Card className="bg-card">
         <CardHeader>
-          <CardTitle className="text-card-title text-primary font-indian">{translateSync("Artisan Approvals")}</CardTitle>
+          <CardTitle className="text-card-title text-primary font-indian">{t("Artisan Approvals")}</CardTitle>
         </CardHeader>
         <CardContent>
           <Table>

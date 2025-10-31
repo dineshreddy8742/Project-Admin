@@ -1,5 +1,4 @@
 import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
-import translations from '@/lib/translations.json';
 
 // Define available languages
 export const LANGUAGES = [
@@ -17,12 +16,17 @@ export const LANGUAGES = [
   { code: 'ur', name: 'اردو', flag: '🇮🇳' },
 ];
 
+// Export languages as an alias for backward compatibility
+export const languages = LANGUAGES;
+
 // Define the context type
 interface LanguageContextType {
   currentLanguage: { code: string; name: string; flag: string };
   translations: any;
   changeLanguage: (langCode: string) => void;
   t: (key: string) => string;
+  translate: (text: string) => Promise<string>;
+  translateSync: (text: string) => string;
 }
 
 // Create the context
@@ -48,15 +52,14 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
     return LANGUAGES.find(lang => lang.code === savedLanguage) || LANGUAGES[0];
   });
   
-  const [translationData, setTranslationData] = useState(translations);
+  const [translationData, setTranslationData] = useState<any>({});
 
   // Load translations when language changes
   useEffect(() => {
     const loadTranslations = async () => {
       try {
-        // In a real implementation, you would load language-specific translations
-        // For now, we're using the static translations from the JSON file
-        setTranslationData(translations);
+        const translations = await import(`@/lib/translations/${currentLanguage.code}.json`);
+        setTranslationData(translations.default);
         localStorage.setItem('selectedLanguage', currentLanguage.code);
       } catch (error) {
         console.error('Error loading translations:', error);
@@ -75,8 +78,8 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
 
   const t = (key: string) => {
     const keys = key.split('.');
-    let value: any = translationData[currentLanguage.code] || {};
-    
+    let value: any = translationData[currentLanguage.code] || translationData;
+
     for (const k of keys) {
       if (value && typeof value === 'object') {
         value = value[k];
@@ -84,15 +87,48 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
         return key; // Return original key if translation not found
       }
     }
-    
+
     return value || key;
+  };
+
+  // Async translation function using translation service
+  const translate = async (text: string): Promise<string> => {
+    if (currentLanguage.code === 'en') {
+      return text;
+    }
+
+    try {
+      return await translateText(text, currentLanguage.code, 'en');
+    } catch (error) {
+      console.error('Translation error:', error);
+      return text;
+    }
+  };
+
+  // Synchronous translation function - tries local translations first, falls back to original text
+  const translateSync = (text: string): string => {
+    if (currentLanguage.code === 'en') {
+      return text;
+    }
+
+    // Try to find translation in local translations first
+    const localTranslation = t(text);
+    if (localTranslation !== text) {
+      return localTranslation;
+    }
+
+    // For now, return original text for sync translation
+    // In a real implementation, you might want to cache translations
+    return text;
   };
 
   const contextValue: LanguageContextType = {
     currentLanguage,
     translations: translationData,
     changeLanguage,
-    t
+    t,
+    translate,
+    translateSync
   };
 
   return (

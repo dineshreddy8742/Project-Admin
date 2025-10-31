@@ -1,6 +1,6 @@
 import { toast } from '@/components/ui/use-toast';
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:7860/api';
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:7860';
 
 // Check if we're in development mode
 const isDevelopment = process.env.NODE_ENV === 'development';
@@ -335,7 +335,7 @@ class ApiService {
     formData.append('user_id', userId);
     formData.append('language', language);
 
-    return this.multipartRequest('/agent/start-session', formData);
+    return this.multipartRequest('/api/agent/start-session', formData);
   }
 
   async executeTask(sessionId: string, taskType: string, userInput?: string, file?: File) {
@@ -353,7 +353,7 @@ class ApiService {
     
     formData.append('language', 'en'); // Default language
 
-    return this.multipartRequest('/agent/execute-task', formData);
+    return this.multipartRequest('/api/agent/execute-task', formData);
   }
 
   // Additional agent functionality for navigation and task execution
@@ -363,11 +363,11 @@ class ApiService {
     formData.append('user_response', userResponse);
     formData.append('language', language);
 
-    return this.multipartRequest('/agent/continue-task', formData);
+    return this.multipartRequest('/api/agent/continue-task', formData);
   }
 
   async getAgentStatus(sessionId: string) {
-    return this.request(`/agent/session/${sessionId}`);
+    return this.request(`/api/agent/session/${sessionId}`);
   }
 
   async generateWorkflow(systemPrompt: string, userPrompt: string, uiSchema: any) {
@@ -377,7 +377,7 @@ class ApiService {
       ui_schema: uiSchema
     };
 
-    return this.request('/agent/generate-workflow', {
+    return this.request('/api/agent/generate-workflow', {
       method: 'POST',
       body: JSON.stringify(payload),
     });

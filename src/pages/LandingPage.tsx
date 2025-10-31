@@ -54,7 +54,7 @@ const LandingPage = () => {
         >
           <div className="flex-1">
             <p className="font-medium">👋 Welcome!</p>
-            <p className="text-sm opacity-90">Start your journey with Project Kisan today.</p>
+            <p className="text-sm opacity-90">Start your journey with Kisan Bhema today.</p>
           </div>
           <button 
             onClick={() => setShowNotification(false)}
@@ -200,7 +200,7 @@ const LandingPage = () => {
           >
             <Sprout className="text-white h-8 w-8" />
             <span className="text-2xl font-bold text-white">
-              Project Kisan
+              Kisan Bhema
             </span>
           </motion.div>
           <motion.div 
@@ -233,7 +233,7 @@ const LandingPage = () => {
             animate={{ scale: 1 }}
             transition={{ duration: 0.8, delay: 0.5 }}
           >
-            Welcome to Project Kisan 🌾
+            Welcome to Kisan Bhema 🌾
           </motion.h1>
           <motion.p 
             className="text-xl md:text-2xl text-white/90 mb-12 max-w-3xl mx-auto leading-relaxed drop-shadow-md"
@@ -241,10 +241,10 @@ const LandingPage = () => {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.7 }}
           >
-            Empowering farmers with technology for a sustainable future
+            Empowering farmers with technology for a sustainable future. Also featuring Project Artisan for craftspeople.
           </motion.p>
           
-          {/* Crop, Sun and IoT Sensors Illustration */}
+          {/* Dual Platform Illustration */}
           <motion.div 
             className="flex justify-center items-center mb-12 space-x-8"
             initial={{ opacity: 0, scale: 0.5 }}
@@ -252,7 +252,7 @@ const LandingPage = () => {
             transition={{ duration: 1, delay: 0.9 }}
           >
             <motion.div 
-              className="text-green-300"
+              className="text-green-300 flex flex-col items-center"
               animate={{ 
                 y: [0, -10, 0],
                 rotate: [0, 5, -5, 0]
@@ -264,9 +264,10 @@ const LandingPage = () => {
               }}
             >
               <Sprout size={60} />
+              <span className="text-white mt-2 text-sm">Farmers</span>
             </motion.div>
             <motion.div 
-              className="text-yellow-300"
+              className="text-yellow-300 flex flex-col items-center"
               animate={{ 
                 rotate: [0, 360],
                 scale: [1, 1.1, 1]
@@ -278,9 +279,10 @@ const LandingPage = () => {
               }}
             >
               <Sun size={80} />
+              <span className="text-white mt-2 text-sm">Platform</span>
             </motion.div>
             <motion.div 
-              className="text-blue-300"
+              className="text-blue-300 flex flex-col items-center"
               animate={{ 
                 opacity: [0.5, 1, 0.5],
                 scale: [1, 1.05, 1]
@@ -292,6 +294,7 @@ const LandingPage = () => {
               }}
             >
               <Activity size={50} />
+              <span className="text-white mt-2 text-sm">Artisans</span>
             </motion.div>
           </motion.div>
           
@@ -352,6 +355,50 @@ const LandingPage = () => {
               </Button>
             </motion.div>
           </motion.div>
+
+          {/* Platform Overview - Two Projects */}
+          <motion.div 
+            className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-12 items-center"
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 1.8 }}
+          >
+            <motion.div className="text-center p-8 bg-white/20 backdrop-blur-sm rounded-3xl border border-white/30 shadow-2xl"
+              initial={{ x: -50, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              transition={{ duration: 0.8, delay: 1.9 }}
+            >
+              <div className="text-6xl mb-4">🌾</div>
+              <h3 className="text-2xl font-bold text-white mb-4">Kisan Bhema</h3>
+              <p className="text-white/90 text-lg leading-relaxed mb-4">
+                Technology solutions for farmers: crop monitoring, market prices, government schemes, cold storage, and more.
+              </p>
+              <div className="flex flex-wrap justify-center gap-2 mt-4 text-white/80 text-sm">
+                <span className="px-3 py-1 bg-green-600/30 rounded-full">Crop Monitoring</span>
+                <span className="px-3 py-1 bg-green-600/30 rounded-full">Disease Detection</span>
+                <span className="px-3 py-1 bg-green-600/30 rounded-full">Market Trends</span>
+                <span className="px-3 py-1 bg-green-600/30 rounded-full">Cold Storage</span>
+              </div>
+            </motion.div>
+
+            <motion.div className="text-center p-8 bg-white/20 backdrop-blur-sm rounded-3xl border border-white/30 shadow-2xl"
+              initial={{ x: 50, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              transition={{ duration: 0.8, delay: 2.1 }}
+            >
+              <div className="text-6xl mb-4">🏛️</div>
+              <h3 className="text-2xl font-bold text-white mb-4">Project Artisan</h3>
+              <p className="text-white/90 text-lg leading-relaxed mb-4">
+                Digital platform for artisans: showcase crafts, market products, share heritage stories, and grow your business.
+              </p>
+              <div className="flex flex-wrap justify-center gap-2 mt-4 text-white/80 text-sm">
+                <span className="px-3 py-1 bg-blue-600/30 rounded-full">Craft Showcase</span>
+                <span className="px-3 py-1 bg-blue-600/30 rounded-full">Marketplace</span>
+                <span className="px-3 py-1 bg-blue-600/30 rounded-full">Heritage Stories</span>
+                <span className="px-3 py-1 bg-blue-600/30 rounded-full">Business Growth</span>
+              </div>
+            </motion.div>
+          </motion.div>
         </motion.div>
 
         {/* Features Grid */}
@@ -364,26 +411,26 @@ const LandingPage = () => {
           {[
             {
               icon: <Sprout className="h-10 w-10 text-green-600" />,
-              title: "🌱 Crop Disease Detection",
-              description: "AI-powered early detection and prevention of plant diseases with advanced image recognition and real-time monitoring.",
+              title: "🌾 Crop Disease Detection",
+              description: "AI-powered early detection and prevention of plant diseases with advanced image recognition and real-time monitoring for farmers.",
               delay: 0.1
-            },
-            {
-              icon: <CloudRain className="h-10 w-10 text-blue-600" />,
-              title: "🌦️ Real-Time Weather & Sensors",
-              description: "Live weather updates, soil monitoring, and environmental sensors to optimize farming conditions.",
-              delay: 0.2
             },
             {
               icon: <TrendingUp className="h-10 w-10 text-orange-600" />,
               title: "📊 Market Price Trends",
-              description: "Stay updated with latest market prices, trends, and optimal selling strategies for maximum profit.",
+              description: "Stay updated with latest market prices, trends, and optimal selling strategies for maximum profit for both crops and crafts.",
+              delay: 0.2
+            },
+            {
+              icon: <Shield className="h-10 w-10 text-blue-600" />,
+              title: "🏛️ Government Schemes",
+              description: "Access and apply for various government schemes and subsidies available for both farmers and artisans throughout the year.",
               delay: 0.3
             },
             {
-              icon: <Bell className="h-10 w-10 text-purple-600" />,
-              title: "📡 Smart Alerts & Notifications",
-              description: "Intelligent notifications for crop care, weather warnings, and market opportunities.",
+              icon: <Settings className="h-10 w-10 text-purple-600" />,
+              title: "❄️ Cold Storage Access",
+              description: "Find and book cold storage facilities to preserve your produce and extend its shelf life for better market opportunities.",
               delay: 0.4
             }
           ].map((feature, index) => (
@@ -538,10 +585,10 @@ const LandingPage = () => {
                 >
                   <Sprout className="text-green-400 h-8 w-8" />
                 </motion.div>
-                <span className="text-2xl font-bold text-white">Project Kisan</span>
+                <span className="text-2xl font-bold text-white">Kisan Bhema</span>
               </div>
               <p className="text-gray-300 text-lg leading-relaxed">
-                Empowering farmers with technology for a sustainable future.
+                Empowering farmers with technology for a sustainable future. Also featuring Project Artisan for craftspeople.
               </p>
             </motion.div>
 
@@ -605,7 +652,7 @@ const LandingPage = () => {
             transition={{ duration: 0.8, delay: 0.5 }}
           >
             <p className="text-gray-400 text-sm mb-3">
-              © 2025 Project Kisan. All Rights Reserved.
+              © 2025 Kisan Bhema. All Rights Reserved.
             </p>
             <p className="text-gray-500 text-xs">
               Powered by React, Tailwind CSS, and Modern Web Technologies.

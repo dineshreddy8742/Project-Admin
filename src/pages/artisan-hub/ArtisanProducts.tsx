@@ -19,7 +19,7 @@ interface Artifact {
 }
 
 const ArtisanProducts = () => {
-  const { translateSync } = useLanguage();
+  const { t: languageT } = useLanguage();
   const { toast } = useToast();
   
   const [artifacts, setArtifacts] = useState<Artifact[]>([]);
@@ -34,8 +34,8 @@ const ArtisanProducts = () => {
       } catch (error) {
         console.error("Failed to fetch products:", error);
         toast({
-          title: translateSync("Error"),
-          description: translateSync("Failed to load your products."),
+          title: languageT("Error"),
+          description: languageT("Failed to load your products."),
           variant: "destructive",
         });
       } finally {
@@ -43,24 +43,24 @@ const ArtisanProducts = () => {
       }
     };
     fetchArtifacts();
-  }, [toast, translateSync]);
+  }, [toast, languageT]);
 
   const handleDeleteArtifact = async (artifactId: string) => {
-    if (!confirm(translateSync("Are you sure you want to delete this product?"))) {
+    if (!confirm(languageT("Are you sure you want to delete this product?"))) {
       return;
     }
     try {
       await artisanService.deleteArtisanProduct(artifactId);
       setArtifacts(prev => prev.filter(artifact => artifact.id !== artifactId));
       toast({
-        title: translateSync("Product Deleted"),
-        description: translateSync("The product has been successfully deleted."),
+        title: languageT("Product Deleted"),
+        description: languageT("The product has been successfully deleted."),
       });
     } catch (error) {
       console.error("Error deleting artifact:", error);
       toast({
-        title: translateSync("Deletion Failed"),
-        description: translateSync("Could not delete product. Please try again."),
+        title: languageT("Deletion Failed"),
+        description: languageT("Could not delete product. Please try again."),
         variant: "destructive"
       });
     }
@@ -89,18 +89,18 @@ const ArtisanProducts = () => {
       className="space-y-6"
     >
       <div className="flex items-center justify-between">
-        <h1 className="text-section-title text-primary font-indian">{translateSync("My Products")}</h1>
+        <h1 className="text-section-title text-primary font-indian">{languageT("My Products")}</h1>
         <Link to="/artisans/add-product">
           <Button className="bg-primary hover:bg-primary/90">
             <Plus className="h-4 w-4 mr-2" />
-            {translateSync("Add New Product")}
+            {languageT("Add New Product")}
           </Button>
         </Link>
       </div>
 
       {isLoadingArtifacts ? (
         <div className="text-center py-8">
-          <p>{translateSync("Loading your products...")}</p>
+          <p>{languageT("Loading your products...")}</p>
         </div>
       ) : artifacts.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -140,11 +140,11 @@ const ArtisanProducts = () => {
                     <div className="flex justify-end gap-2">
                       <Link to={`/artisans/add-product?id=${artifact.id}`}>
                         <Button variant="outline" size="sm">
-                          {translateSync("Edit")}
+                          {languageT("Edit")}
                         </Button>
                       </Link>
                       <Button variant="destructive" size="sm" onClick={() => handleDeleteArtifact(artifact.id)}>
-                        {translateSync("Delete")}
+                        {languageT("Delete")}
                       </Button>
                     </div>
                   </CardContent>
@@ -156,14 +156,14 @@ const ArtisanProducts = () => {
       ) : (
         <div className="text-center py-12">
           <Package className="h-16 w-16 text-muted-foreground mx-auto mb-4" />
-          <h3 className="text-lg font-medium mb-2">{translateSync("No products found")}</h3>
+          <h3 className="text-lg font-medium mb-2">{languageT("No products found")}</h3>
           <p className="text-muted-foreground mb-4">
-            {translateSync("Get started by adding your first product.")}
+            {languageT("Get started by adding your first product.")}
           </p>
           <Link to="/artisans/add-product">
             <Button className="bg-primary hover:bg-primary/90">
               <Plus className="h-4 w-4 mr-2" />
-              {translateSync("Add Your First Product")}
+              {languageT("Add Your First Product")}
             </Button>
           </Link>
         </div>

@@ -15,7 +15,7 @@ import { useSearchParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
 const AddProduct = () => {
-  const { translateSync } = useLanguage();
+  const { t: languageT } = useLanguage();
   const { toast } = useToast();
   const [searchParams] = useSearchParams();
   const productId = searchParams.get('id');
@@ -59,29 +59,29 @@ const AddProduct = () => {
         } catch (error) {
           console.error("Failed to fetch artifact:", error);
           toast({
-            title: translateSync("Error"),
-            description: translateSync("Failed to load product details."),
+            title: languageT("Error"),
+            description: languageT("Failed to load product details."),
             variant: "destructive",
           });
         }
       };
       fetchArtifact();
     }
-  }, [productId, toast, translateSync]);
+  }, [productId, toast, languageT]);
 
   const handleGenerateAIContent = async () => {
     if (artifactImages.length === 0) {
       toast({
-        title: translateSync("No image uploaded"),
-        description: translateSync("Please upload an image of your artifact first."),
+        title: languageT("No image uploaded"),
+        description: languageT("Please upload an image of your artifact first."),
         variant: "destructive"
       });
       return;
     }
     if (!newArtifact.name) {
       toast({
-        title: translateSync("Missing artifact name"),
-        description: translateSync("Please enter the artifact name."),
+        title: languageT("Missing artifact name"),
+        description: languageT("Please enter the artifact name."),
         variant: "destructive"
       });
       return;
@@ -100,14 +100,14 @@ const AddProduct = () => {
       );
       setAiGeneratedContent(generated);
       toast({
-        title: translateSync("AI Content Generated"),
-        description: translateSync("Marketing content successfully generated!"),
+        title: languageT("AI Content Generated"),
+        description: languageT("Marketing content successfully generated!"),
       });
     } catch (error) {
       console.error("Error generating AI content:", error);
       toast({
-        title: translateSync("AI Generation Failed"),
-        description: translateSync("Could not generate content. Please try again."),
+        title: languageT("AI Generation Failed"),
+        description: languageT("Could not generate content. Please try again."),
         variant: "destructive"
       });
     } finally {
@@ -123,14 +123,14 @@ const AddProduct = () => {
         [field]: translatedText,
       }));
       toast({
-        title: translateSync("Text Translated"),
-        description: translateSync("Content has been translated."),
+        title: languageT("Text Translated"),
+        description: languageT("Content has been translated."),
       });
     } catch (error) {
       console.error("Error translating text:", error);
       toast({
-        title: translateSync("Translation Failed"),
-        description: translateSync("Could not translate content. Please try again."),
+        title: languageT("Translation Failed"),
+        description: languageT("Could not translate content. Please try again."),
         variant: "destructive"
       });
     } 
@@ -158,14 +158,14 @@ const AddProduct = () => {
         setAudioUrl(null);
       };
       toast({
-        title: translateSync("Playing Audio"),
-        description: translateSync("Text-to-speech initiated."),
+        title: languageT("Playing Audio"),
+        description: languageT("Text-to-speech initiated."),
       });
     } catch (error) {
       console.error("Error with text-to-speech:", error);
       toast({
-        title: translateSync("Text-to-Speech Failed"),
-        description: translateSync("Could not generate audio. Please try again."),
+        title: languageT("Text-to-Speech Failed"),
+        description: languageT("Could not generate audio. Please try again."),
         variant: "destructive"
       });
     } finally {
@@ -247,7 +247,7 @@ const AddProduct = () => {
       <Card className="bg-card">
         <CardHeader>
           <CardTitle className="text-section-title text-primary font-indian">
-            {productId ? translateSync("Edit Product") : translateSync("Add New Product")}
+            {productId ? languageT("Edit Product") : languageT("Add New Product")}
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-6">
@@ -335,25 +335,25 @@ const AddProduct = () => {
           <Card className="border-dashed border-2 border-primary/50 bg-primary/5">
             <CardHeader>
               <CardTitle className="text-lg flex items-center gap-2 font-indian text-primary">
-                ✨ {translateSync("AI Marketing Assistant")}
+                ✨ {languageT("AI Marketing Assistant")}
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <p className="text-sm text-muted-foreground">
-                {translateSync("Generate compelling descriptions, stories, and social media posts using AI.")}
+                {languageT("Generate compelling descriptions, stories, and social media posts using AI.")}
               </p>
               <Button
                 onClick={handleGenerateAIContent}
                 disabled={isGeneratingAIContent || artifactImages.length === 0 || !newArtifact.name}
                 className="w-full bg-accent hover:bg-accent/90"
               >
-                {isGeneratingAIContent ? translateSync("Generating...") : translateSync("Generate with AI")}
+                {isGeneratingAIContent ? languageT("Generating...") : languageT("Generate with AI")}
               </Button>
 
               {aiGeneratedContent.description && (
                 <div className="space-y-4 mt-4">
                   <div>
-                    <Label className="text-sm font-medium">{translateSync("AI-Generated Description")}</Label>
+                    <Label className="text-sm font-medium">{t("AI-Generated Description")}</Label>
                     <Textarea
                       value={aiGeneratedContent.description}
                       onChange={(e) => setAiGeneratedContent(prev => ({...prev, description: e.target.value}))}
@@ -361,12 +361,12 @@ const AddProduct = () => {
                       className="mt-1 bg-background"
                     />
                     <div className="flex gap-2 mt-2">
-                      <Button size="sm" variant="outline" onClick={() => handleTranslate('description', aiGeneratedContent.description)}>{translateSync("Translate")}</Button>
-                      <Button size="sm" variant="outline" onClick={() => handleTextToSpeech(aiGeneratedContent.description)}>{isSpeaking ? translateSync("Stop Speaking") : translateSync("Speak")}</Button>
+                      <Button size="sm" variant="outline" onClick={() => handleTranslate('description', aiGeneratedContent.description)}>{t("Translate")}</Button>
+                      <Button size="sm" variant="outline" onClick={() => handleTextToSpeech(aiGeneratedContent.description)}>{isSpeaking ? t("Stop Speaking") : t("Speak")}</Button>
                     </div>
                   </div>
                   <div>
-                    <Label className="text-sm font-medium">{translateSync("AI-Generated Story")}</Label>
+                    <Label className="text-sm font-medium">{t("AI-Generated Story")}</Label>
                     <Textarea
                       value={aiGeneratedContent.story}
                       onChange={(e) => setAiGeneratedContent(prev => ({...prev, story: e.target.value}))}
@@ -374,12 +374,12 @@ const AddProduct = () => {
                       className="mt-1 bg-background"
                     />
                     <div className="flex gap-2 mt-2">
-                      <Button size="sm" variant="outline" onClick={() => handleTranslate('story', aiGeneratedContent.story)}>{translateSync("Translate")}</Button>
-                      <Button size="sm" variant="outline" onClick={() => handleTextToSpeech(aiGeneratedContent.story)}>{isSpeaking ? translateSync("Stop Speaking") : translateSync("Speak")}</Button>
+                      <Button size="sm" variant="outline" onClick={() => handleTranslate('story', aiGeneratedContent.story)}>{t("Translate")}</Button>
+                      <Button size="sm" variant="outline" onClick={() => handleTextToSpeech(aiGeneratedContent.story)}>{isSpeaking ? t("Stop Speaking") : t("Speak")}</Button>
                     </div>
                   </div>
                   <div>
-                    <Label className="text-sm font-medium">{translateSync("AI-Generated Social Media Posts")}</Label>
+                    <Label className="text-sm font-medium">{t("AI-Generated Social Media Posts")}</Label>
                     <Textarea
                       value={aiGeneratedContent.socialMediaPosts.join('\n\n')}
                       onChange={(e) => setAiGeneratedContent(prev => ({...prev, socialMediaPosts: e.target.value.split('\n\n')}))}
@@ -395,7 +395,7 @@ const AddProduct = () => {
           <div className="flex space-x-2 pt-4">
             <Button onClick={handleSaveArtifact} className="flex-1 bg-primary hover:bg-primary/90">
               <Package className="h-4 w-4 mr-2" />
-              {productId ? translateSync("Save Changes") : translateSync("List Artifact")}
+              {productId ? t("Save Changes") : t("List Artifact")}
             </Button>
           </div>
         </CardContent>

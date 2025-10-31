@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Mic, MessageSquare, Send, Volume2, X } from 'lucide-react';
@@ -7,6 +8,8 @@ import { AgentInterface } from './AgentInterface';
 import { useLanguage } from '@/contexts/language-utils';
 import { useAuth } from '@/contexts/ArtomartAuthContext';
 import { aiAssistantService, AIMessage } from '@/services/aiAssistantService';
+import { translateText, detectLanguage } from '@/services/translationService';
+import { devLog, ThrottledLogger } from '@/utils/devMode';
 
 import eventBus from '@/lib/eventBus';
 import { workflowEngine } from '@/services/workflowEngine';
@@ -21,8 +24,6 @@ import groceryMarketplaceWorkflow from '@/workflows/groceryMarketplace.workflow.
 import communityWorkflow from '@/workflows/community.workflow.json';
 import profileWorkflow from '@/workflows/profile.workflow.json';
 import settingsWorkflow from '@/workflows/settings.workflow.json';
-
-import { translateText, detectLanguage } from '@/services/translationService';
 
 export const VoiceAssistant: React.FC = () => {
   const navigate = useNavigate();
@@ -201,19 +202,18 @@ export const VoiceAssistant: React.FC = () => {
         const sessionData = await aiAssistantService.startSession(userId, 'initial', currentLanguage.code);
         console.log('Session started successfully:', sessionData);
         setSessionId(sessionData.session_id);
-        // OVERRIDE: Use an artisan-focused, AI marketplace onboarding greeting
-        const artisanGreeting =
-          "Welcome, Artisan! I'm your AI Marketplace Assistant. I can help you tell your unique story, promote your crafts online, and reach more customers. Ask me anything—like how to market your products, write your artisanal story, or improve your sales!";
+        // Generic AI assistant greeting that works for both dashboards
+        const greeting = "Hey there! I'm Bheema, your AI assistant. I can help with farming advice, market prices, cold storage, artisan business support, and much more! How can I assist you today?";
         setConversation([{
           id: 'greeting',
-          content: artisanGreeting,
+          content: greeting,
           sender: 'bot',
           timestamp: new Date()
         }]);
         setStatus('idle'); // Set status to idle after successful session start
         console.log('Agent is now ready and idle');
-        // Make agent visible for demo purposes
-        setIsAgentVisible(true);
+        // Don't auto-show agent - user must click the button to open it
+        // setIsAgentVisible(true);
       } catch (error) {
         console.error('Error starting session:', error);
         setStatus('error'); // Set status to error if session fails
@@ -321,8 +321,11 @@ export const VoiceAssistant: React.FC = () => {
     setIsSpeaking(false);
   };
 
+  // Create throttled logger instance
+  const throttledLogger = useRef(new ThrottledLogger(2000));
+
   const processUserMessage = async (message: string, file?: File, isVoiceInput: boolean = false) => {
-    console.log('processUserMessage called with isVoiceInput:', isVoiceInput);
+    devLog.log('processUserMessage called with isVoiceInput:', isVoiceInput);
 
     // Detect the language of the user's message
     let detectedLanguage = currentLanguage.code;
@@ -591,6 +594,31 @@ export const VoiceAssistant: React.FC = () => {
                 speakText(responseMessage, detectedLanguage);
                 break;
             }
+            case 'artisan_query': {
+                // Handle artisan-related queries
+                const response = await aiAssistantService.executeTask(sessionId!, 'artisan_query', message, detectedLanguage, file);
+                let responseMessage = response.actions[0]?.message || "I can help you with artisan marketplace queries. What would you like to know about products, orders, or your artisan business?";
+
+                // Always translate response to detected language for multilingual support
+                if (detectedLanguage !== 'en') {
+                    try {
+                        responseMessage = await translateText(responseMessage, detectedLanguage, 'en');
+                    } catch (error) {
+                        console.warn('Translation failed, using original response:', error);
+                    }
+                }
+
+                const botMessage: AIMessage = {
+                    id: `${new Date().toISOString()}-bot`,
+                    content: responseMessage,
+                    sender: 'bot',
+                    timestamp: new Date(),
+                };
+                setConversation(prev => [...prev, botMessage]);
+                // Always speak the response for voice assistant interactions
+                speakText(responseMessage, detectedLanguage);
+                break;
+            }
             default:
                 console.error(`Unknown intent: ${intent}`);
                 let errorMessageText = "Sorry, I'm not sure how to handle that request.";
@@ -699,20 +727,26 @@ export const VoiceAssistant: React.FC = () => {
       {!isAgentVisible && (
         <motion.button
           onClick={() => setIsAgentVisible(true)}
-          className="fixed bottom-6 right-6 z-50 p-4 bg-primary text-primary-foreground rounded-full shadow-lg hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 transition-all duration-300"
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}
+          className="fixed bottom-6 right-6 z-50 p-5 bg-gradient-to-r from-primary to-primary/90 text-primary-foreground rounded-full shadow-2xl hover:shadow-3xl focus:outline-none focus:ring-4 focus:ring-primary/30 transition-all duration-300 border-2 border-white"
+          whileHover={{ scale: 1.15, rotate: 5 }}
+          whileTap={{ scale: 0.95 }}
           animate={{ 
-            rotate: [0, 5, -5, 0],
-            y: [0, -3, 0]
+            y: [0, -5, 0],
           }}
           transition={{ 
-            duration: 3, 
+            duration: 2, 
             repeat: Infinity,
             ease: "easeInOut"
           }}
         >
-          <MessageSquare className="h-6 w-6" />
+          <div className="relative">
+            <MessageSquare className="h-6 w-6" />
+            <motion.div
+              className="absolute -top-1 -right-1 w-3 h-3 bg-green-500 rounded-full border border-white"
+              animate={{ scale: [1, 1.2, 1] }}
+              transition={{ duration: 1.5, repeat: Infinity }}
+            />
+          </div>
         </motion.button>
       )}
 

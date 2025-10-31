@@ -3,33 +3,93 @@ import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 import { Button } from './ui/button';
-import { useLanguage } from '@/contexts/language-utils';
+import { useTranslation } from '@/hooks/useTranslation';
 import { useWeather } from '@/hooks/useWeather';
 import { usePlan } from '@/contexts/PlanContext';
-import { 
-  Thermometer, 
-  Droplets, 
-  Sun, 
-  Wind,
-  TrendingUp,
-  TrendingDown,
-  AlertTriangle,
-  CheckCircle,
-  Cloud,
-  CloudRain,
-  CloudSnow,
-  Zap,
-  Eye,
-  Gauge,
-  RefreshCw
-} from 'lucide-react';
+import { Sun, Cloud, CloudRain, Zap, CloudSnow, Gauge, RefreshCw, AlertTriangle, Thermometer, Droplets, Wind, Eye, TrendingUp, TrendingDown } from 'lucide-react';
 
 export const Dashboard: React.FC = () => {
   const navigate = useNavigate();
-  const { translate, translateSync, currentLanguage } = useLanguage();
+  const { t } = useTranslation([
+    'dashboard.title',
+    'dashboard.overview',
+    'dashboard.cropMonitor',
+    'dashboard.cropRecommendation',
+    'dashboard.diseaseDetector',
+    'dashboard.marketTrends',
+    'dashboard.govSchemes',
+    'dashboard.coldStorage',
+    'dashboard.groceryMarket',
+    'dashboard.community',
+    'dashboard.profile',
+    'dashboard.account',
+    'dashboard.settings',
+    'dashboard.appPreferences',
+    'navbar.dashboard',
+    'navbar.products',
+    'navbar.orders',
+    'navbar.marketing',
+    'navbar.heritageStory',
+    'navbar.regionalLanguage',
+    'navbar.craftEducation',
+    'navbar.searchDiscover',
+    'navbar.reviews',
+    'navbar.marketplace',
+    'navbar.community',
+    'navbar.settings',
+    'navbar.help',
+    'aiAssistant.title',
+    'aiAssistant.placeholder',
+    'aiAssistant.send',
+    'aiAssistant.voice',
+    'aiAssistant.suggestionManageProducts',
+    'aiAssistant.suggestionTrackOrders',
+    'aiAssistant.suggestionPromote',
+    'aiAssistant.suggestionCropSelection',
+    'aiAssistant.suggestionDiseaseIdentify',
+    'aiAssistant.suggestionStorage',
+    'navbar.artisanAssistant',
+    'navbar.farmingAssistant',
+    'navbar.digitalArtifactAssistant',
+    'navbar.digitalFarmingAssistant',
+    'navbar.farmerFriend',
+    'navbar.karnatakaIndia',
+    'dashboard.cropMonitoringAlert',
+    'dashboard.tomatoPriceIncrease',
+    'dashboard.subsidyScheme',
+    'dashboard.organicCertification',
+    'forms.farmerName',
+    'forms.farmLocation',
+    'forms.phoneNumber',
+    'forms.email',
+    'forms.farmSize',
+    'forms.produceType',
+    'forms.estimatedQuantity',
+    'forms.preferredDuration',
+    'forms.nearestFacility',
+    'forms.specialRequirements',
+    'forms.agreedToTerms',
+    'forms.submit',
+    'forms.cancel',
+    'common.save',
+    'common.edit',
+    'common.delete',
+    'common.add',
+    'common.view',
+    'common.back',
+    'common.next',
+    'common.yes',
+    'common.no',
+    'common.ok',
+    'common.close',
+    'common.loading',
+    'common.error',
+    'common.success',
+    'common.info',
+    'common.warning',
+  ]);
   const { weatherData, loading, error, refetch } = useWeather();
   const { hasFeatureAccess, setPlan, currentPlan } = usePlan();
-  const [translatedTexts, setTranslatedTexts] = useState<Record<string, string>>({});
   const [currentUser, setCurrentUser] = useState<any>(null);
 
   // Load user data and set plan
@@ -44,69 +104,17 @@ export const Dashboard: React.FC = () => {
     }
   }, [setPlan]);
 
-  // Translate static texts when language changes
-  useEffect(() => {
-    const translateStaticTexts = async () => {
-      if (currentLanguage.code === 'en') {
-        setTranslatedTexts({});
-        return;
-      }
-
-      const textsToTranslate = [
-        'Crop Monitor',
-        'Disease Check', 
-        'Market Price',
-        'Gov Schemes',
-        'Weather Daily Forecast',
-        'Market Trends',
-        'AI Assistant',
-        'Grocery Market',
-        'Welcome, Farmer!',
-        'Digital Farming Assistant',
-        'Monitor your crops',
-        'Get AI insights',
-        'Maximize your harvest',
-        'Temperature',
-        'Light Intensity',
-        'Humidity',
-        'Condition',
-        'Wind Speed',
-        'Pressure',
-        'Cloud Cover',
-        'Visibility',
-        "Today's Weather",
-        'Loading weather data...'
-      ];
-
-      const translated: Record<string, string> = {};
-      
-      for (const text of textsToTranslate) {
-        try {
-          translated[text] = await translate(text);
-        } catch (error) {
-          translated[text] = text;
-        }
-      }
-      
-      setTranslatedTexts(translated);
-    };
-
-    translateStaticTexts();
-  }, [currentLanguage, translate]);
-
-  const t = (text: string) => translatedTexts[text] || translateSync(text) || text;
-
   const quickActions = React.useMemo(() => {
     const allQuickActions = [
-      { title: t('Crop Monitor'), emoji: '🌾', color: 'bg-primary', route: '/crop-monitor', feature: 'crop-monitor' },
-      { title: t('Disease Check'), emoji: '🦠', color: 'bg-secondary', route: '/disease-detector', feature: 'disease-detector' },
-      { title: t('Market Price'), emoji: '📈', color: 'bg-accent', route: '/market-trends', feature: 'market-trends' },
-      { title: t('Gov Schemes'), emoji: '🏛️', color: 'bg-farm-leaf', route: '/government-schemes', feature: 'government-schemes' },
+      { title: t('dashboard.cropMonitor'), emoji: '🌾', color: 'bg-primary', route: '/crop-monitor', feature: 'crop-monitor' },
+      { title: t('dashboard.diseaseDetector'), emoji: '🦠', color: 'bg-secondary', route: '/disease-detector', feature: 'disease-detector' },
+      { title: t('dashboard.marketTrends'), emoji: '📈', color: 'bg-accent', route: '/market-trends', feature: 'market-trends' },
+      { title: t('dashboard.govSchemes'), emoji: '🏛️', color: 'bg-farm-leaf', route: '/government-schemes', feature: 'government-schemes' },
       
-      { title: t('Crop Recommendation'), emoji: '🌱', color: 'bg-blue-500', route: '/crop-recommendation', feature: 'crop-recommendation' },
-      { title: t('Cold Storage'), emoji: '❄️', color: 'bg-teal-500', route: '/cold-storage', feature: 'cold-storage' },
-      { title: t('Community'), emoji: '🧑‍🤝‍🧑', color: 'bg-yellow-500', route: '/community', feature: 'community' },
-      { title: t('Grocery Market'), emoji: '🛒', color: 'bg-green-500', route: '/grocery-marketplace', feature: 'grocery-marketplace' }
+      { title: t('dashboard.cropRecommendation'), emoji: '🌱', color: 'bg-blue-500', route: '/crop-recommendation', feature: 'crop-recommendation' },
+      { title: t('dashboard.coldStorage'), emoji: '❄️', color: 'bg-teal-500', route: '/cold-storage', feature: 'cold-storage' },
+      { title: t('dashboard.community'), emoji: '🧑‍🤝‍🧑', color: 'bg-yellow-500', route: '/community', feature: 'community' },
+      { title: t('dashboard.groceryMarket'), emoji: '🛒', color: 'bg-green-500', route: '/grocery-marketplace', feature: 'grocery-marketplace' }
     ];
     return allQuickActions.filter(action => hasFeatureAccess(action.feature));
   }, [t, hasFeatureAccess, currentPlan]);
@@ -169,13 +177,13 @@ export const Dashboard: React.FC = () => {
         className="text-center py-8"
       >
         <h1 className="text-hero text-primary font-indian mb-4">
-          🌾 {t('Welcome, Farmer!')}
+          🌾 {t('dashboard.title')}
         </h1>
         <p className="text-lg text-muted-foreground">
-          {t('Digital Farming Assistant')}
+          {t('navbar.farmingAssistant')}
         </p>
         <p className="text-sm text-secondary mt-2">
-          {t('Monitor your crops')} • {t('Get AI insights')} • {t('Maximize your harvest')}
+          {t('dashboard.cropMonitor')} • {t('aiAssistant.title')} • {t('dashboard.marketTrends')}
         </p>
       </motion.div>
 
@@ -224,7 +232,7 @@ export const Dashboard: React.FC = () => {
         {/* Header with Refresh */}
         <div className="flex items-center justify-between">
           <h2 className="text-section-title text-primary font-indian flex items-center gap-2">
-            🌤️ {t('Weather Daily Forecast')}
+            🌤️ {t('dashboard.weatherForecast')}
             <motion.div
               animate={{ rotate: 360 }}
               transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
@@ -252,7 +260,7 @@ export const Dashboard: React.FC = () => {
             >
               <Sun className="h-8 w-8 text-primary" />
             </motion.div>
-            <p className="mt-2 text-muted-foreground">{t('Loading weather data...')}</p>
+            <p className="mt-2 text-muted-foreground">{t('common.loading')}</p>
           </div>
         )}
 
@@ -277,7 +285,7 @@ export const Dashboard: React.FC = () => {
             >
               <Card className="bg-gradient-to-br from-primary/5 to-accent/10 border-primary/20">
                 <CardHeader>
-                  <CardTitle className="text-lg font-indian text-primary">{t("Today's Weather")}</CardTitle>
+                  <CardTitle className="text-lg font-indian text-primary">{t('dashboard.todayWeather')}</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -309,7 +317,7 @@ export const Dashboard: React.FC = () => {
                       >
                         {weatherData.current.temp}°C
                       </motion.div>
-                       <p className="text-sm text-muted-foreground">{t('Temperature')}</p>
+                       <p className="text-sm text-muted-foreground">{t('dashboard.temperature')}</p>
                     </motion.div>
 
                     {/* Light Intensity */}
@@ -334,7 +342,7 @@ export const Dashboard: React.FC = () => {
                       <div className="text-2xl font-bold text-primary">
                         {weatherData.current.lightIntensity} lux
                       </div>
-                      <p className="text-sm text-muted-foreground">{t('Light Intensity')}</p>
+                      <p className="text-sm text-muted-foreground">{t('dashboard.lightIntensity')}</p>
                     </motion.div>
 
                     {/* Humidity */}
@@ -359,7 +367,7 @@ export const Dashboard: React.FC = () => {
                       <div className="text-2xl font-bold text-primary">
                         {weatherData.current.humidity}%
                       </div>
-                      <p className="text-sm text-muted-foreground">{t('Humidity')}</p>
+                      <p className="text-sm text-muted-foreground">{t('dashboard.humidity')}</p>
                     </motion.div>
 
                     {/* Weather Condition */}
@@ -389,7 +397,7 @@ export const Dashboard: React.FC = () => {
                       <div className="text-lg font-medium text-primary capitalize">
                         {t(weatherData.current.description)}
                       </div>
-                      <p className="text-sm text-muted-foreground">{t('Condition')}</p>
+                      <p className="text-sm text-muted-foreground">{t('dashboard.condition')}</p>
                     </motion.div>
                   </div>
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4">
@@ -415,7 +423,7 @@ export const Dashboard: React.FC = () => {
                       <div className="text-2xl font-bold text-primary">
                         {weatherData.current.windSpeed} km/h
                       </div>
-                      <p className="text-sm text-muted-foreground">{t('Wind Speed')}</p>
+                      <p className="text-sm text-muted-foreground">{t('dashboard.windSpeed')}</p>
                     </motion.div>
 
                     {/* Pressure */}
@@ -440,7 +448,7 @@ export const Dashboard: React.FC = () => {
                       <div className="text-2xl font-bold text-primary">
                         {weatherData.current.pressure} hPa
                       </div>
-                      <p className="text-sm text-muted-foreground">{t('Pressure')}</p>
+                      <p className="text-sm text-muted-foreground">{t('dashboard.pressure')}</p>
                     </motion.div>
 
                     {/* Cloud Cover */}
@@ -465,7 +473,7 @@ export const Dashboard: React.FC = () => {
                       <div className="text-2xl font-bold text-primary">
                         {weatherData.current.cloudCover}%
                       </div>
-                      <p className="text-sm text-muted-foreground">{t('Cloud Cover')}</p>
+                      <p className="text-sm text-muted-foreground">{t('dashboard.cloudCover')}</p>
                     </motion.div>
 
                     {/* Visibility */}
@@ -490,7 +498,7 @@ export const Dashboard: React.FC = () => {
                       <div className="text-2xl font-bold text-primary">
                         {weatherData.current.visibility} km
                       </div>
-                      <p className="text-sm text-muted-foreground">{t('Visibility')}</p>
+                      <p className="text-sm text-muted-foreground">{t('dashboard.visibility')}</p>
                     </motion.div>
                   </div>
                 </CardContent>
@@ -503,7 +511,7 @@ export const Dashboard: React.FC = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.3 }}
             >
-              <h3 className="text-lg font-indian text-primary mb-4">7-Day Forecast</h3>
+              <h3 className="text-lg font-indian text-primary mb-4">{t('dashboard.sevenDayForecast')}</h3>
               <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-7 gap-3">
                 {weatherData.forecast.map((day, index) => (
                   <motion.div
@@ -575,7 +583,7 @@ export const Dashboard: React.FC = () => {
           <Card>
             <CardHeader>
               <CardTitle className="text-card-title text-primary font-indian">
-                📈 Today's Market Prices
+                📈 {t('dashboard.marketPrices')}
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-3">
@@ -590,7 +598,7 @@ export const Dashboard: React.FC = () => {
                   <div>
                     <p className="font-medium">{item.crop}</p>
                     <p className="text-sm text-muted-foreground">
-                      Current Price
+                      {t('dashboard.currentPrice')}
                     </p>
                   </div>
                   <div className="text-right">
@@ -611,7 +619,7 @@ export const Dashboard: React.FC = () => {
                 </motion.div>
               ))}
               <Button className="w-full mt-4 bg-accent hover:bg-accent/90">
-                View All Prices
+                {t('common.viewAll')}
               </Button>
             </CardContent>
           </Card>
@@ -626,7 +634,7 @@ export const Dashboard: React.FC = () => {
           <Card>
             <CardHeader>
               <CardTitle className="text-card-title text-primary font-indian">
-                🔔 Farm Alerts
+                🔔 {t('dashboard.farmAlerts')}
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-3">
@@ -657,7 +665,7 @@ export const Dashboard: React.FC = () => {
                 </motion.div>
               ))}
               <Button variant="outline" className="w-full mt-4">
-                View All Alerts
+                {t('common.viewAll')}
               </Button>
             </CardContent>
           </Card>

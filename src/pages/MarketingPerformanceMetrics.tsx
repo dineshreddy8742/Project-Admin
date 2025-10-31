@@ -10,7 +10,7 @@ import { TrendingUp, IndianRupee, MessageCircle, Share2, Users, BarChart3, Filte
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, LineChart, Line, PieChart, Pie, Cell, AreaChart, Area } from 'recharts';
 
 const MarketingPerformanceMetrics = () => {
-  const { translateSync } = useLanguage();
+  const { t: languageT } = useLanguage();
   const { toast } = useToast();
   const [selectedChannel, setSelectedChannel] = useState('all');
   const [selectedCampaign, setSelectedCampaign] = useState('all');
@@ -245,8 +245,8 @@ const MarketingPerformanceMetrics = () => {
             <CardTitle className="text-card-title text-primary font-indian">Spend vs Revenue Over Time</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="h-80">
-              <ResponsiveContainer width="100%" height="100%">
+            <div className="h-80 min-h-[320px]">
+              <ResponsiveContainer width="100%" height={320} minWidth={300} minHeight={320}>
                 <AreaChart data={marketingData}>
                   <CartesianGrid strokeDasharray="3 3" />
                   <XAxis dataKey="month" />
@@ -272,8 +272,8 @@ const MarketingPerformanceMetrics = () => {
             <CardTitle className="text-card-title text-primary font-indian">Channel Performance</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="h-80">
-              <ResponsiveContainer width="100%" height="100%">
+            <div className="h-80 min-h-[320px]">
+              <ResponsiveContainer width="100%" height={320} minWidth={300} minHeight={320}>
                 <BarChart data={performanceMetrics}>
                   <CartesianGrid strokeDasharray="3 3" />
                   <XAxis dataKey="channel" />
@@ -334,8 +334,8 @@ const MarketingPerformanceMetrics = () => {
             <CardTitle className="text-card-title text-primary font-indian">Marketing Channel Breakdown</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="h-80">
-              <ResponsiveContainer width="100%" height="100%">
+            <div className="h-80 min-h-[320px]">
+              <ResponsiveContainer width="100%" height={320} minWidth={300} minHeight={320}>
                 <PieChart>
                   <Pie
                     data={campaignBreakdown}
