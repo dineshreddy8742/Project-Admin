@@ -68,8 +68,21 @@ export const AuthProvider = ({ children }) => {
 
     // CRITICAL: This must remain synchronous
     const { data: { subscription } } = supabase?.auth?.onAuthStateChange(
-      authStateHandlers?.onChange
-    )
+      (event, session) => {
+        setUser(session?.user ?? null);
+        setLoading(false);
+
+        if (session?.user) {
+          profileOperations?.load(session?.user?.id); // Fire-and-forget
+          // Add navigation here
+          if (window.location.pathname === '/') { // Only navigate if on the root path
+            window.location.href = '/dashboard'; // Redirect to dashboard
+          }
+        } else {
+          profileOperations?.clear();
+        }
+      }
+    );
 
     return () => subscription?.unsubscribe()
   }, [])
