@@ -1,0 +1,398 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Project Kisan Design System - Rural Farming Theme
+All colors MUST be HSL. Inspired by rural agriculture and nature.
+*/
+
+@layer base {
+  :root {
+    /* Rural background gradients */
+    --background: 79 58% 94%; /* Soft green-white */
+    --foreground: 0 0% 13%; /* Dark text */
+
+    /* Card system */
+    --card: 0 0% 100%; /* Pure white cards */
+    --card-foreground: 0 0% 13%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 13%;
+
+    /* Primary - Dark Green for farming theme */
+    --primary: 122 39% 33%; /* #2E7D32 equivalent */
+    --primary-foreground: 0 0% 100%;
+
+    /* Secondary - Warm earth tones */
+    --secondary: 16 25% 38%; /* #5D4037 warm brown */
+    --secondary-foreground: 0 0% 100%;
+
+    /* Muted - Light earth tones */
+    --muted: 79 58% 94%;
+    --muted-foreground: 0 0% 45%;
+
+    /* Accent - Harvest yellow */
+    --accent: 45 100% 51%; /* #FFB300 bright yellow */
+    --accent-foreground: 0 0% 13%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 79 20% 85%;
+    --input: 79 20% 85%;
+    --ring: 122 39% 33%;
+
+    --radius: 0.75rem;
+
+    /* Custom Project Kisan variables */
+    --rural-gradient-start: 79 58% 94%; /* Light green */
+    --rural-gradient-middle: 60 100% 97%; /* Cream */
+    --rural-gradient-end: 0 0% 100%; /* White */
+    
+    /* Farming color palette */
+    --farm-soil: 16 25% 38%; /* Brown soil */
+    --farm-leaf: 122 39% 33%; /* Green leaves */
+    --farm-sun: 45 100% 51%; /* Yellow sun */
+    --farm-sky: 210 100% 95%; /* Light blue sky */
+    
+    /* Chart colors for data visualization */
+    --chart-1: 220 70% 50%; /* Blue for maximum prices */
+    --chart-2: 0 84% 60%; /* Red for minimum prices */
+    --chart-3: 142 76% 36%; /* Green for trends */
+    --chart-4: 45 100% 51%; /* Yellow for highlights */
+    --chart-5: 262 83% 58%; /* Purple for additional data */
+    
+    /* Custom colors related to ArtiSAN.ai */
+    --arti-primary: 262 83% 58%; /* A vibrant purple */
+    --arti-secondary: 280 80% 65%; /* A slightly lighter purple */
+
+    /* Functional colors */
+    --success: 142 76% 36%; /* Green */
+    --success-foreground: 0 0% 100%;
+    --warning: 45 100% 51%; /* Yellow */
+    --warning-foreground: 0 0% 13%;
+    --error: 0 84% 60%; /* Red */
+    --error-foreground: 0 0% 100%;
+
+    /* Shadows */
+    --shadow-medium: 0 4px 10px rgba(0, 0, 0, 0.1);
+    --shadow-strong: 0 7px 20px rgba(0, 0, 0, 0.15);
+    --shadow-glow: 0 0 15px rgba(var(--primary-rgb), 0.4); /* Assuming --primary-rgb is defined elsewhere or derived */
+    --primary-rgb: 79, 58, 94; /* Example RGB for primary, adjust as needed */
+    --faded-muted: 79 58% 98%; /* A lighter muted for gradients */
+    
+    /* Animation variables - Slower for smoother experience */
+    --transition-smooth: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    
+    /* Shadows with farming theme */
+    --shadow-soft: 0 4px 20px hsl(122 39% 33% / 0.1);
+    --shadow-glow: 0 0 30px hsl(45 100% 51% / 0.2);
+    --shadow-card: 0 8px 32px hsl(0 0% 0% / 0.08);
+    --shadow-medium: 0 6px 24px hsl(0 0% 0% / 0.12);
+
+    /* Artisan-specific colors */
+    --arti-primary: 122 39% 33%; /* Same as primary - farming green */
+    --arti-secondary: 16 25% 38%; /* Same as secondary - warm brown */
+
+    /* Status colors */
+    --success: 142 76% 36%; /* Green for success */
+    --success-foreground: 0 0% 100%; /* White text on success */
+
+    --warning: 45 100% 51%; /* Yellow for warning */
+    --warning-foreground: 0 0% 13%; /* Dark text on warning */
+
+    --error: 0 84% 60%; /* Red for error */
+    --error-foreground: 0 0% 98%; /* White text on error */
+
+    --faded-muted: 79 58% 94% / 0.6; /* Semi-transparent muted background */
+
+    /* Primary color in RGB format for special cases */
+    --primary-rgb: 46, 125, 50; /* #2E7D32 in RGB */
+
+    /* Font families */
+    --font-primary: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji', sans-serif;
+    --font-indian: 'Baloo Bhai 2', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji', sans-serif;
+
+    --sidebar-background: 0 0% 98%;
+
+    --sidebar-foreground: 240 5.3% 26.1%;
+
+    --sidebar-primary: 240 5.9% 10%;
+
+    --sidebar-primary-foreground: 0 0% 98%;
+
+    --sidebar-accent: 240 4.8% 95.9%;
+
+    --sidebar-accent-foreground: 240 5.9% 10%;
+
+    --sidebar-border: 220 13% 91%;
+
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+    
+    /* Chart colors for dark mode */
+    --chart-1: 220 70% 50%;
+    --chart-2: 0 84% 60%;
+    --chart-3: 142 76% 36%;
+    --chart-4: 45 100% 51%;
+    --chart-5: 262 83% 58%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-primary;
+    background: linear-gradient(135deg, 
+      hsl(var(--rural-gradient-start)), 
+      hsl(var(--rural-gradient-middle)) 50%, 
+      hsl(var(--rural-gradient-end))
+    );
+    min-height: 100vh;
+  }
+}
+
+@layer components {
+  /* Rural gradient backgrounds */
+  .bg-rural-gradient {
+    background: linear-gradient(135deg, 
+      hsl(var(--rural-gradient-start)), 
+      hsl(var(--rural-gradient-middle)) 50%, 
+      hsl(var(--rural-gradient-end))
+    );
+  }
+
+  .bg-farm-gradient {
+    background: linear-gradient(135deg,
+      hsl(var(--farm-leaf)),
+      hsl(var(--farm-sun)) 50%,
+      hsl(var(--farm-sky))
+    );
+  }
+
+  /* Font families */
+  .font-primary {
+    font-family: var(--font-primary);
+  }
+
+  .font-indian {
+    font-family: var(--font-indian);
+  }
+
+  /* Custom animations - Slower for smoother experience */
+  .animate-bounce-gentle {
+    animation: bounce-gentle 4s infinite;
+  }
+
+  .animate-pulse-soft {
+    animation: pulse-soft 4s infinite;
+  }
+
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .animate-wiggle {
+    animation: wiggle 4s ease-in-out infinite;
+  }
+
+  .animate-gradient-text {
+    animation: gradient-text 6s ease infinite;
+    background-size: 200% 200%;
+  }
+
+  .animate-fade-in-up {
+    animation: fade-in-up 1.2s ease-out;
+  }
+
+  .animate-spin-slow {
+    animation: spin-slow 16s linear infinite;
+  }
+
+  .animate-float-leaf-1 {
+    animation: float-leaf-1 8s ease-in-out infinite;
+  }
+
+  .animate-float-leaf-2 {
+    animation: float-leaf-2 10s ease-in-out infinite;
+  }
+
+  .animate-float-leaf-3 {
+    animation: float-leaf-3 7s ease-in-out infinite;
+  }
+
+  .animate-float-leaf-4 {
+    animation: float-leaf-4 9s ease-in-out infinite;
+  }
+
+  .animate-float-leaf-5 {
+    animation: float-leaf-5 11s ease-in-out infinite;
+  }
+
+  /* Custom shadows */
+  .shadow-soft {
+    box-shadow: var(--shadow-soft);
+  }
+
+  .shadow-glow {
+    box-shadow: var(--shadow-glow);
+  }
+
+  .shadow-card {
+    box-shadow: var(--shadow-card);
+  }
+
+  /* Transitions */
+  .transition-smooth {
+    transition: var(--transition-smooth);
+  }
+
+  .transition-bounce {
+    transition: var(--transition-bounce);
+  }
+
+  /* Voice button styles */
+  .voice-button {
+    @apply bg-accent text-accent-foreground rounded-full p-4 shadow-glow;
+    @apply hover:scale-110 active:scale-95 transition-bounce;
+  }
+
+  .voice-button.listening {
+    @apply animate-pulse-soft shadow-glow;
+  }
+}
+
+@layer utilities {
+  /* Custom keyframes */
+  @keyframes bounce-gentle {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+
+  @keyframes pulse-soft {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.8; transform: scale(1.05); }
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+  }
+
+  @keyframes ripple {
+    0% { transform: scale(0); opacity: 1; }
+    100% { transform: scale(4); opacity: 0; }
+  }
+
+  @keyframes wiggle {
+    0%, 100% { transform: rotate(-3deg); }
+    50% { transform: rotate(3deg); }
+  }
+
+  @keyframes gradient-text {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+
+  @keyframes fade-in-up {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes spin-slow {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  @keyframes float-leaf-1 {
+    0%, 100% { transform: translateY(0px) translateX(0px) rotate(0deg); }
+    33% { transform: translateY(-15px) translateX(10px) rotate(5deg); }
+    66% { transform: translateY(-5px) translateX(-8px) rotate(-3deg); }
+  }
+
+  @keyframes float-leaf-2 {
+    0%, 100% { transform: translateY(0px) translateX(0px) rotate(0deg); }
+    25% { transform: translateY(-10px) translateX(-12px) rotate(-7deg); }
+    50% { transform: translateY(-20px) translateX(5px) rotate(4deg); }
+    75% { transform: translateY(-8px) translateX(8px) rotate(-2deg); }
+  }
+
+  @keyframes float-leaf-3 {
+    0%, 100% { transform: translateY(0px) translateX(0px) rotate(0deg); }
+    40% { transform: translateY(-12px) translateX(15px) rotate(8deg); }
+    80% { transform: translateY(-3px) translateX(-10px) rotate(-5deg); }
+  }
+
+  @keyframes float-leaf-4 {
+    0%, 100% { transform: translateY(0px) translateX(0px) rotate(0deg); }
+    30% { transform: translateY(-18px) translateX(-7px) rotate(-6deg); }
+    70% { transform: translateY(-6px) translateX(12px) rotate(3deg); }
+  }
+
+  @keyframes float-leaf-5 {
+    0%, 100% { transform: translateY(0px) translateX(0px) rotate(0deg); }
+    20% { transform: translateY(-8px) translateX(6px) rotate(2deg); }
+    60% { transform: translateY(-14px) translateX(-9px) rotate(-4deg); }
+    90% { transform: translateY(-2px) translateX(3px) rotate(1deg); }
+  }
+
+  /* Responsive text sizes for farming content */
+  .text-hero {
+    @apply text-4xl md:text-5xl lg:text-6xl font-bold;
+  }
+
+  .text-section-title {
+    @apply text-2xl md:text-3xl font-semibold;
+  }
+
+  .text-card-title {
+    @apply text-lg md:text-xl font-medium;
+  }
+}

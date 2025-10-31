@@ -1,0 +1,39 @@
+{
+  "name": "Market Trends",
+  "intent": "market_trends_flow",
+  "initialMessage": "I can help with market trends. Which commodity are you interested in?",
+  "steps": [
+    {
+      "id": "GET_COMMODITY",
+      "message": "Which commodity are you interested in?",
+      "type": "text",
+      "targetField": "commodity",
+      "nextStep": "GET_STATE",
+      "actions": [
+        { "type": "navigate", "path": "/market-trends" }
+      ]
+    },
+    {
+      "id": "GET_STATE",
+      "message": "For which state do you want to see the trends?",
+      "type": "text",
+      "targetField": "state",
+      "nextStep": "GET_DISTRICT"
+    },
+    {
+      "id": "GET_DISTRICT",
+      "message": "And for which district?",
+      "type": "text",
+      "targetField": "district",
+      "nextStep": "FETCH_TRENDS"
+    },
+    {
+      "id": "FETCH_TRENDS",
+      "message": "Fetching market trends for {commodity} in {district}, {state}...",
+      "type": "text",
+      "actions": [
+        { "type": "dispatch", "event": "fetch-market-trends", "payload": { "commodity": "{commodity}", "state": "{state}", "district": "{district}" } }
+      ]
+    }
+  ]
+}

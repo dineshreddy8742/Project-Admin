@@ -1,0 +1,76 @@
+{
+  "name": "Crop Recommendation",
+  "intent": "crop_recommendation_flow",
+  "initialMessage": "I can help with that. To recommend the best crop for your farm, I need some information about your soil and weather conditions. Let's start with the soil. What is the nitrogen level in your soil?",
+  "steps": [
+    {
+      "id": "GET_N",
+      "message": "What is the nitrogen level in your soil?",
+      "type": "number",
+      "targetField": "N",
+      "nextStep": "GET_P",
+      "actions": [
+        { "type": "navigate", "path": "/crop-recommendation" }
+      ]
+    },
+    {
+      "id": "GET_P",
+      "message": "Got it. What is the phosphorus level?",
+      "type": "number",
+      "targetField": "P",
+      "nextStep": "GET_K"
+    },
+    {
+      "id": "GET_K",
+      "message": "And the potassium level?",
+      "type": "number",
+      "targetField": "K",
+      "nextStep": "GET_PH"
+    },
+    {
+      "id": "GET_PH",
+      "message": "Great. What is the pH level of your soil?",
+      "type": "number",
+      "targetField": "ph",
+      "nextStep": "GET_TEMP"
+    },
+    {
+      "id": "GET_TEMP",
+      "message": "Now for the weather conditions. What is the average temperature in your area in Celsius?",
+      "type": "number",
+      "targetField": "temperature",
+      "nextStep": "GET_HUMIDITY"
+    },
+    {
+      "id": "GET_HUMIDITY",
+      "message": "What is the average humidity in percentage?",
+      "type": "number",
+      "targetField": "humidity",
+      "nextStep": "GET_RAINFALL"
+    },
+    {
+      "id": "GET_RAINFALL",
+      "message": "And what is the average rainfall in millimeters?",
+      "type": "number",
+      "targetField": "rainfall",
+      "nextStep": "GET_SEASON"
+    },
+    {
+      "id": "GET_SEASON",
+      "message": "Finally, what season are you planning to grow in? You can say Summer, Winter, Autumn, Spring, or Monsoon.",
+      "type": "choice",
+      "targetField": "season",
+      "options": ["Summer", "Winter", "Autumn", "Spring", "Monsoon"],
+      "nextStep": "CONFIRM_RECOMMENDATION"
+    },
+    {
+      "id": "CONFIRM_RECOMMENDATION",
+      "message": "Thanks. I have all the information I need. I will now get a crop recommendation for you. Please say 'get recommendation' to continue.",
+      "type": "confirm",
+      "targetField": "getRecommendation",
+      "actions": [
+        { "type": "dispatch", "event": "get-recommendation" }
+      ]
+    }
+  ]
+}

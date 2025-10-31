@@ -1,0 +1,15 @@
+
+[
+  {
+    "scheme_name": "Pradhan Mantri Kisan Samman Nidhi",
+    "scheme_details": "Financial assistance of ₹6000 per year to small and marginal farmers.",
+    "target_beneficiary": "Small and Marginal Farmers",
+    "geography": "India"
+  },
+  {
+    "scheme_name": "Pradhan Mantri Fasal Bima Yojana",
+    "scheme_details": "Crop insurance scheme to protect against crop failure.",
+    "target_beneficiary": "All Farmers",
+    "geography": "India"
+  }
+]

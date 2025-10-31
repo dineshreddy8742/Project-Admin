@@ -1,0 +1,38 @@
+{
+  "name": "Grocery Marketplace",
+  "intent": "grocery_marketplace_flow",
+  "initialMessage": "I can help you with the grocery marketplace. Are you looking to search for a product or filter by category?",
+  "steps": [
+    {
+      "id": "GET_QUERY_TYPE",
+      "message": "Are you looking to search for a product or filter by category?",
+      "type": "choice",
+      "options": ["search", "filter"],
+      "nextStep": {
+        "search": "GET_SEARCH_QUERY",
+        "filter": "GET_CATEGORY"
+      },
+      "actions": [
+        { "type": "navigate", "path": "/grocery-marketplace" }
+      ]
+    },
+    {
+      "id": "GET_SEARCH_QUERY",
+      "message": "What product are you looking for?",
+      "type": "text",
+      "targetField": "searchQuery",
+      "actions": [
+        { "type": "dispatch", "event": "fill-grocery-marketplace-field", "payload": { "field": "searchQuery", "value": "{searchQuery}" } }
+      ]
+    },
+    {
+      "id": "GET_CATEGORY",
+      "message": "Which category would you like to filter by?",
+      "type": "text",
+      "targetField": "category",
+      "actions": [
+        { "type": "dispatch", "event": "fill-grocery-marketplace-field", "payload": { "field": "category", "value": "{category}" } }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,165 @@
+{
+  "name": "App Settings",
+  "intent": "settings_flow",
+  "initialMessage": "I can help you with your settings. Which category are you interested in? You can say language, voice, notifications, or location.",
+  "steps": [
+    {
+      "id": "GET_SETTING_CATEGORY",
+      "message": "Which category are you interested in? You can say language, voice, notifications, or location.",
+      "type": "choice",
+      "options": ["language", "voice", "notifications", "location"],
+      "nextStep": {
+        "language": "GET_LANGUAGE_SETTING",
+        "voice": "GET_VOICE_SETTING",
+        "notifications": "GET_NOTIFICATIONS_SETTING",
+        "location": "GET_LOCATION_SETTING"
+      },
+      "actions": [
+        { "type": "navigate", "path": "/settings" }
+      ]
+    },
+    {
+      "id": "GET_LANGUAGE_SETTING",
+      "message": "Do you want to change app language or voice language?",
+      "type": "choice",
+      "options": ["app language", "voice language"],
+      "nextStep": {
+        "app language": "SET_APP_LANGUAGE",
+        "voice language": "SET_VOICE_LANGUAGE"
+      }
+    },
+    {
+      "id": "SET_APP_LANGUAGE",
+      "message": "Which language do you want to set for the app?",
+      "type": "text",
+      "targetField": "appLanguage",
+      "actions": [
+        { "type": "dispatch", "event": "fill-settings-field", "payload": { "field": "appLanguage", "value": "{appLanguage}" } }
+      ]
+    },
+    {
+      "id": "SET_VOICE_LANGUAGE",
+      "message": "Which language do you want to set for the voice assistant?",
+      "type": "text",
+      "targetField": "voiceLanguage",
+      "actions": [
+        { "type": "dispatch", "event": "fill-settings-field", "payload": { "field": "voiceLanguage", "value": "{voiceLanguage}" } }
+      ]
+    },
+    {
+      "id": "GET_VOICE_SETTING",
+      "message": "Do you want to enable/disable voice assistant or change speech speed?",
+      "type": "choice",
+      "options": ["enable voice assistant", "speech speed"],
+      "nextStep": {
+        "enable voice assistant": "SET_VOICE_ENABLED",
+        "speech speed": "SET_SPEECH_SPEED"
+      }
+    },
+    {
+      "id": "SET_VOICE_ENABLED",
+      "message": "Do you want to enable or disable the voice assistant? Say enable or disable.",
+      "type": "confirm",
+      "targetField": "voiceEnabled",
+      "actions": [
+        { "type": "dispatch", "event": "fill-settings-field", "payload": { "field": "voiceEnabled", "value": "{voiceEnabled}" } }
+      ]
+    },
+    {
+      "id": "SET_SPEECH_SPEED",
+      "message": "What speech speed do you want? Say slow, normal, or fast.",
+      "type": "choice",
+      "options": ["slow", "normal", "fast"],
+      "targetField": "speechSpeed",
+      "actions": [
+        { "type": "dispatch", "event": "fill-settings-field", "payload": { "field": "speechSpeed", "value": "{speechSpeed}" } }
+      ]
+    },
+    {
+      "id": "GET_NOTIFICATIONS_SETTING",
+      "message": "Which notification setting do you want to change? You can say crop alerts, price updates, weather warnings, or scheme updates.",
+      "type": "choice",
+      "options": ["crop alerts", "price updates", "weather warnings", "scheme updates"],
+      "nextStep": {
+        "crop alerts": "SET_CROP_ALERTS",
+        "price updates": "SET_PRICE_UPDATES",
+        "weather warnings": "SET_WEATHER_WARNINGS",
+        "scheme updates": "SET_SCHEME_UPDATES"
+      }
+    },
+    {
+      "id": "SET_CROP_ALERTS",
+      "message": "Do you want to enable or disable crop alerts? Say enable or disable.",
+      "type": "confirm",
+      "targetField": "cropAlerts",
+      "actions": [
+        { "type": "dispatch", "event": "fill-settings-field", "payload": { "field": "cropAlerts", "value": "{cropAlerts}" } }
+      ]
+    },
+    {
+      "id": "SET_PRICE_UPDATES",
+      "message": "Do you want to enable or disable price updates? Say enable or disable.",
+      "type": "confirm",
+      "targetField": "priceUpdates",
+      "actions": [
+        { "type": "dispatch", "event": "fill-settings-field", "payload": { "field": "priceUpdates", "value": "{priceUpdates}" } }
+      ]
+    },
+    {
+      "id": "SET_WEATHER_WARNINGS",
+      "message": "Do you want to enable or disable weather warnings? Say enable or disable.",
+      "type": "confirm",
+      "targetField": "weatherWarnings",
+      "actions": [
+        { "type": "dispatch", "event": "fill-settings-field", "payload": { "field": "weatherWarnings", "value": "{weatherWarnings}" } }
+      ]
+    },
+    {
+      "id": "SET_SCHEME_UPDATES",
+      "message": "Do you want to enable or disable scheme updates? Say enable or disable.",
+      "type": "confirm",
+      "targetField": "schemeUpdates",
+      "actions": [
+        { "type": "dispatch", "event": "fill-settings-field", "payload": { "field": "schemeUpdates", "value": "{schemeUpdates}" } }
+      ]
+    },
+    {
+      "id": "GET_LOCATION_SETTING",
+      "message": "Do you want to change auto-detect location, city, or state?",
+      "type": "choice",
+      "options": ["auto detect location", "city", "state"],
+      "nextStep": {
+        "auto detect location": "SET_AUTO_DETECT_LOCATION",
+        "city": "SET_LOCATION_CITY",
+        "state": "SET_LOCATION_STATE"
+      }
+    },
+    {
+      "id": "SET_AUTO_DETECT_LOCATION",
+      "message": "Do you want to enable or disable auto-detect location? Say enable or disable.",
+      "type": "confirm",
+      "targetField": "autoDetectLocation",
+      "actions": [
+        { "type": "dispatch", "event": "fill-settings-field", "payload": { "field": "autoDetectLocation", "value": "{autoDetectLocation}" } }
+      ]
+    },
+    {
+      "id": "SET_LOCATION_CITY",
+      "message": "What city do you want to set?",
+      "type": "text",
+      "targetField": "locationCity",
+      "actions": [
+        { "type": "dispatch", "event": "fill-settings-field", "payload": { "field": "locationCity", "value": "{locationCity}" } }
+      ]
+    },
+    {
+      "id": "SET_LOCATION_STATE",
+      "message": "What state do you want to set?",
+      "type": "text",
+      "targetField": "locationState",
+      "actions": [
+        { "type": "dispatch", "event": "fill-settings-field", "payload": { "field": "locationState", "value": "{locationState}" } }
+      ]
+    }
+  ]
+}

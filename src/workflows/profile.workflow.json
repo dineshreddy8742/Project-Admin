@@ -1,0 +1,78 @@
+{
+  "name": "User Profile",
+  "intent": "profile_flow",
+  "initialMessage": "I can help you with your profile. What field do you want to edit? You can say name, email, phone, state, district, or language.",
+  "steps": [
+    {
+      "id": "GET_FIELD",
+      "message": "What field do you want to edit? You can say name, email, phone, state, district, or language.",
+      "type": "choice",
+      "options": ["name", "email", "phone", "state", "district", "language"],
+      "nextStep": {
+        "name": "GET_NAME",
+        "email": "GET_EMAIL",
+        "phone": "GET_PHONE",
+        "state": "GET_STATE",
+        "district": "GET_DISTRICT",
+        "language": "GET_LANGUAGE"
+      },
+      "actions": [
+        { "type": "navigate", "path": "/profile" }
+      ]
+    },
+    {
+      "id": "GET_NAME",
+      "message": "What should be the new name?",
+      "type": "text",
+      "targetField": "name",
+      "actions": [
+        { "type": "dispatch", "event": "fill-profile-field", "payload": { "field": "name", "value": "{name}" } }
+      ]
+    },
+    {
+      "id": "GET_EMAIL",
+      "message": "What should be the new email?",
+      "type": "text",
+      "targetField": "email",
+      "actions": [
+        { "type": "dispatch", "event": "fill-profile-field", "payload": { "field": "email", "value": "{email}" } }
+      ]
+    },
+    {
+      "id": "GET_PHONE",
+      "message": "What should be the new phone number?",
+      "type": "text",
+      "targetField": "phone",
+      "actions": [
+        { "type": "dispatch", "event": "fill-profile-field", "payload": { "field": "phone", "value": "{phone}" } }
+      ]
+    },
+    {
+      "id": "GET_STATE",
+      "message": "What should be the new state?",
+      "type": "text",
+      "targetField": "state",
+      "actions": [
+        { "type": "dispatch", "event": "fill-profile-field", "payload": { "field": "state", "value": "{state}" } }
+      ]
+    },
+    {
+      "id": "GET_DISTRICT",
+      "message": "What should be the new district?",
+      "type": "text",
+      "targetField": "district",
+      "actions": [
+        { "type": "dispatch", "event": "fill-profile-field", "payload": { "field": "district", "value": "{district}" } }
+      ]
+    },
+    {
+      "id": "GET_LANGUAGE",
+      "message": "What should be the new language?",
+      "type": "text",
+      "targetField": "language",
+      "actions": [
+        { "type": "dispatch", "event": "fill-profile-field", "payload": { "field": "language", "value": "{language}" } }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,226 @@
+{
+  "pages": {
+    "/": {
+      "elements": {}
+    },
+    "/dashboard": {
+      "elements": {
+        "dashboard title": ".dashboard-title",
+        "crop monitor link": "[href='/dashboard/crop-monitor'], [data-section='crop-monitor']",
+        "crop recommendation link": "[href='/dashboard/crop-recommendation'], [data-section='crop-recommendation']",
+        "disease detector link": "[href='/dashboard/disease-detector'], [data-section='disease-detector']",
+        "market trends link": "[href='/dashboard/market-trends'], [data-section='market-trends']",
+        "gov schemes link": "[href='/dashboard/government-schemes'], [data-section='gov-schemes']",
+        "cold storage link": "[href='/dashboard/cold-storage'], [data-section='cold-storage']",
+        "grocery market link": "[href='/dashboard/grocery-marketplace'], [data-section='grocery-market']",
+        "community link": "[href='/dashboard/community'], [data-section='community']",
+        "profile link": "[href='/dashboard/profile'], [data-section='profile']",
+        "my products link": "[href='/dashboard/products'], [data-section='my-products']",
+        "my orders link": "[href='/dashboard/orders'], [data-section='my-orders']",
+        "marketing hub link": "[href='/dashboard/marketing'], [data-section='marketing-hub']",
+        "heritage story link": "[href='/dashboard/heritage-story'], [data-section='heritage-story']",
+        "regional language link": "[href='/dashboard/regional-language'], [data-section='regional-language']",
+        "craft education link": "[href='/dashboard/craft-education'], [data-section='craft-education']",
+        "search discover link": "[href='/dashboard/search'], [data-section='search-discover']",
+        "reviews feedback link": "[href='/dashboard/reviews'], [data-section='reviews-feedback']",
+        "marketplace link": "[href='/dashboard/marketplace'], [data-section='marketplace']",
+        "settings link": "[href='/dashboard/settings'], [data-section='settings']",
+        "help link": "[href='/dashboard/help'], [data-section='help']",
+        "dashboard link": "[href='/dashboard'], [data-section='dashboard']",
+        "farmer dashboard": "[data-context='farmer']",
+        "artisan dashboard": "[data-context='artisan']"
+      }
+    },
+    "/index": {
+      "elements": {}
+    },
+    "/crop-monitor": {
+      "elements": {}
+    },
+    "/crop-recommendation": {
+      "elements": {
+        "nitrogen field": "#N",
+        "phosphorus field": "#P",
+        "potassium field": "#K",
+        "temperature field": "#temperature",
+        "humidity field": "#humidity",
+        "ph field": "#ph",
+        "rainfall field": "#rainfall",
+        "season select": "#season",
+        "get recommendation button": ".btn-primary"
+      }
+    },
+    "/disease-detector": {
+      "elements": {
+        "camera button": ".camera-btn",
+        "upload button": ".upload-btn",
+        "file input": "input[type=file]",
+        "analyze button": ".analyze-btn",
+        "results section": ".results-section",
+        "disease name": ".disease-name",
+        "confidence score": ".confidence-score",
+        "treatment recommendations": ".treatment-recommendations"
+      }
+    },
+    "/market-trends": {
+      "elements": {
+        "commodity select": ".commodity-select",
+        "time period select": ".time-period-select",
+        "view trends button": ".view-trends-btn",
+        "price chart": ".price-chart",
+        "market insights": ".market-insights"
+      }
+    },
+    "/government-schemes": {
+      "elements": {
+        "scheme search": ".scheme-search",
+        "eligibility check button": ".eligibility-check-btn",
+        "scheme details": ".scheme-details",
+        "apply button": ".apply-btn"
+      }
+    },
+    "/grocery-marketplace": {
+      "elements": {
+        "product search": ".product-search",
+        "category filter": ".category-filter",
+        "add to cart button": ".add-to-cart-btn",
+        "checkout button": ".checkout-btn",
+        "order history": ".order-history"
+      }
+    },
+    "/settings": {
+      "elements": {
+        "language select": ".language-select",
+        "theme toggle": ".theme-toggle",
+        "notification settings": ".notification-settings",
+        "save settings button": ".save-settings-btn"
+      }
+    },
+    "/login": {
+      "elements": {
+        "email field": "#email",
+        "password field": "#password",
+        "login button": "button[type=submit]",
+        "forgot password link": ".forgot-password-link"
+      }
+    },
+    "/signup": {
+      "elements": {
+        "full name field": "#fullName",
+        "email field": "#email",
+        "password field": "#password",
+        "confirm password field": "#confirmPassword",
+        "phone field": "#phone",
+        "signup button": "button[type=submit]"
+      }
+    },
+    "/profile": {
+      "elements": {
+        "profile picture": ".profile-picture",
+        "name field": "#name",
+        "email field": "#email",
+        "phone field": "#phone",
+        "farm location field": "#farmLocation",
+        "farm size field": "#farmSize",
+        "update profile button": ".update-profile-btn"
+      }
+    },
+    "/cold-storage": {
+      "elements": {
+        "full name field": "#farmerName",
+        "phone number field": "#phoneNumber",
+        "email address field": "#email",
+        "farm location field": "#farmLocation",
+        "farm size field": "#farmSize",
+        "produce type select": "[role=combobox]:has(#produceType)",
+        "estimated quantity field": "#estimatedQuantity",
+        "storage duration select": "[role=combobox]:has(#preferredDuration)",
+        "preferred facility select": "[role=combobox]:has(#nearestFacility)",
+        "special requirements field": "#specialRequirements",
+        "terms and conditions checkbox": "#terms",
+        "register button": "button[type=submit]"
+      }
+    },
+    "/community": {
+      "elements": {
+        "post input": ".post-input",
+        "post button": ".post-btn",
+        "discussion threads": ".discussion-threads",
+        "reply button": ".reply-btn",
+        "like button": ".like-btn"
+      }
+    },
+    "/help": {
+      "elements": {
+        "search help": ".help-search",
+        "faq section": ".faq-section",
+        "contact support button": ".contact-support-btn"
+      }
+    },
+    "/products": {
+      "elements": {
+        "add product button": ".add-product-btn",
+        "product list": ".product-list",
+        "edit product button": ".edit-product-btn",
+        "delete product button": ".delete-product-btn"
+      }
+    },
+    "/orders": {
+      "elements": {
+        "order list": ".order-list",
+        "update status button": ".update-status-btn",
+        "view details button": ".view-details-btn"
+      }
+    },
+    "/marketing": {
+      "elements": {
+        "marketing hub title": ".marketing-hub-title",
+        "content generator": ".content-generator",
+        "post to social": ".post-to-social",
+        "view analytics": ".view-analytics"
+      }
+    },
+    "/heritage-story": {
+      "elements": {
+        "generate story button": ".generate-story-btn",
+        "story preview": ".story-preview",
+        "save story button": ".save-story-btn"
+      }
+    },
+    "/regional-language": {
+      "elements": {
+        "language selector": ".language-selector",
+        "translate button": ".translate-btn",
+        "translated content": ".translated-content"
+      }
+    },
+    "/craft-education": {
+      "elements": {
+        "education modules": ".education-modules",
+        "start learning": ".start-learning-btn",
+        "view resources": ".view-resources-btn"
+      }
+    },
+    "/search": {
+      "elements": {
+        "search bar": ".search-bar",
+        "search button": ".search-btn",
+        "search results": ".search-results"
+      }
+    },
+    "/reviews": {
+      "elements": {
+        "view reviews": ".view-reviews",
+        "reply to review": ".reply-to-review",
+        "review analytics": ".review-analytics"
+      }
+    },
+    "/marketplace": {
+      "elements": {
+        "browse products": ".browse-products",
+        "category filters": ".category-filters",
+        "product cards": ".product-cards"
+      }
+    }
+  }
+}

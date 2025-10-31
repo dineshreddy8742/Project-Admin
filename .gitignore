@@ -1,0 +1,41 @@
+# Dependencies
+/node_modules
+/.pnp
+.pnp.js
+
+# Build artifacts
+/dist
+/build
+/.next
+/out
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# VSCode
+.vscode/
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+
+# Temporary files
+*.swp
+*.swo
+*.swn
+
+# Log files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# User-specific files
+error.txt
+updates.txt
+the-strivers-kisan-project-78695945e479.json
+bun.lockb

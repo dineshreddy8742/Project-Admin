@@ -1,0 +1,17 @@
+{
+  "name": "Community Forum",
+  "intent": "community_flow",
+  "initialMessage": "I can help you with the community forum. Which category are you interested in?",
+  "steps": [
+    {
+      "id": "GET_CATEGORY",
+      "message": "Which category are you interested in?",
+      "type": "text",
+      "targetField": "category",
+      "actions": [
+        { "type": "navigate", "path": "/community" },
+        { "type": "dispatch", "event": "fill-community-field", "payload": { "field": "category", "value": "{category}" } }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "name": "Disease Detector",
+  "intent": "disease_detector_flow",
+  "initialMessage": "I can help with that. To get started, please tell me which crop you want to diagnose. You can choose from wheat, rice, sugarcane, cotton, or pulses.",
+  "steps": [
+    {
+      "id": "GET_CROP",
+      "message": "Which crop do you want to diagnose?",
+      "type": "text",
+      "targetField": "crop",
+      "nextStep": "GET_IMAGE",
+      "actions": [
+        { "type": "navigate", "path": "/disease-detector" }
+      ]
+    },
+    {
+      "id": "GET_IMAGE",
+      "message": "Great. Now, please upload an image of the affected plant, or you can say 'open camera' to take a picture.",
+      "type": "text",
+      "targetField": "image",
+      "nextStep": "ANALYZE"
+    },
+    {
+      "id": "ANALYZE",
+      "message": "I've captured the image. I will now start the analysis. This might take a moment.",
+      "type": "text",
+      "actions": [
+        { "type": "dispatch", "event": "analyze-image" }
+      ]
+    }
+  ]
+}

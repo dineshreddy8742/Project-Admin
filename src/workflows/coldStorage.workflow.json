@@ -1,0 +1,131 @@
+{
+  "name": "Cold Storage Booking",
+  "intent": "cold_storage_flow",
+  "initialMessage": "Of course. Let's register you for cold storage. I'll guide you through the process.",
+  "steps": [
+    {
+      "action": "navigate",
+      "target": "/cold-storage"
+    },
+    {
+      "action": "speak",
+      "message": "Navigating to the cold storage page..."
+    },
+    {
+      "action": "dispatch",
+      "event": "open-cold-storage-form"
+    },
+    {
+      "action": "speak",
+      "message": "Opening the registration form..."
+    },
+    {
+      "action": "ask_user",
+      "message": "What is your full name?",
+      "response_key": "farmerName"
+    },
+    {
+      "action": "fill",
+      "field": "farmerName",
+      "value": "{farmerName}"
+    },
+    {
+      "action": "ask_user",
+      "message": "What is your phone number?",
+      "response_key": "phoneNumber"
+    },
+    {
+      "action": "fill",
+      "field": "phoneNumber",
+      "value": "{phoneNumber}"
+    },
+    {
+      "action": "ask_user",
+      "message": "What is your email address?",
+      "response_key": "email"
+    },
+    {
+      "action": "fill",
+      "field": "email",
+      "value": "{email}"
+    },
+    {
+      "action": "ask_user",
+      "message": "Where is your farm located?",
+      "response_key": "farmLocation"
+    },
+    {
+      "action": "fill",
+      "field": "farmLocation",
+      "value": "{farmLocation}"
+    },
+    {
+      "action": "ask_user",
+      "message": "What is the size of your farm in acres?",
+      "response_key": "farmSize"
+    },
+    {
+      "action": "fill",
+      "field": "farmSize",
+      "value": "{farmSize}"
+    },
+    {
+      "action": "ask_user",
+      "message": "What type of produce do you want to store? (vegetables, fruits, grains, etc.)",
+      "response_key": "produceType"
+    },
+    {
+      "action": "fill",
+      "field": "produceType",
+      "value": "{produceType}"
+    },
+    {
+      "action": "ask_user",
+      "message": "What is the estimated quantity of produce you want to store?",
+      "response_key": "estimatedQuantity"
+    },
+    {
+      "action": "fill",
+      "field": "estimatedQuantity",
+      "value": "{estimatedQuantity}"
+    },
+    {
+      "action": "ask_user",
+      "message": "How long would you like to store it for?",
+      "response_key": "preferredDuration"
+    },
+    {
+      "action": "fill",
+      "field": "preferredDuration",
+      "value": "{preferredDuration}"
+    },
+    {
+      "action": "ask_user",
+      "message": "Do you have a preferred cold storage facility?",
+      "response_key": "nearestFacility"
+    },
+    {
+      "action": "fill",
+      "field": "nearestFacility",
+      "value": "{nearestFacility}"
+    },
+    {
+      "action": "ask_user",
+      "message": "Do you have any special requirements for storage?",
+      "response_key": "specialRequirements"
+    },
+    {
+      "action": "fill",
+      "field": "specialRequirements",
+      "value": "{specialRequirements}"
+    },
+    {
+      "action": "click",
+      "target": "terms-checkbox"
+    },
+    {
+      "action": "speak",
+      "message": "I've filled out the form with your information. Please review the details and submit when ready."
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "name": "Government Schemes",
+  "intent": "gov_schemes_flow",
+  "initialMessage": "I can help you with government schemes. What are you looking for?",
+  "steps": [
+    {
+      "id": "GET_QUERY",
+      "message": "What are you looking for?",
+      "type": "text",
+      "targetField": "query",
+      "actions": [
+        { "type": "navigate", "path": "/government-schemes" },
+        { "type": "dispatch", "event": "fill-gov-schemes-field", "payload": { "field": "query", "value": "{query}" } }
+      ]
+    }
+  ]
+}
